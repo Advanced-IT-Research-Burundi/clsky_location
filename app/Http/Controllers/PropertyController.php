@@ -54,7 +54,9 @@ class PropertyController extends Controller
             ->paginate(12)
             ->withQueryString();
 
-        return view('properties.index', compact('properties'));
+            $services = Service::all();
+
+        return view('properties.index', compact('properties', 'services'));
     }
 
     public function create()
