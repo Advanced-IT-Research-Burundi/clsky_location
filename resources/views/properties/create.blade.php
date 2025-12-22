@@ -1,4 +1,3 @@
-```php
 @extends('layouts.admin')
 
 @section('title', 'Nouvelle Propriété')
@@ -60,4 +59,3 @@
     });
 </script>
 @endpush
-```

@@ -114,6 +114,10 @@ class Property extends Model
     }
 
     public function amenities(){
-        $this->belongsToMany(Amenity::class,'property_amenities');
+      return $this->belongsToMany(Amenity::class,'property_amenities');
+    }
+
+    public function services(){
+       return $this->belongsToMany(Service::class,'property_services');
     }
 }

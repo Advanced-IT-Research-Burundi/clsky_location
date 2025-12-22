@@ -45,6 +45,7 @@ Route::middleware(['auth','check.client'])->group(function () {
     Route::resource('reviews', App\Http\Controllers\ReviewController::class);
     Route::resource('messages', App\Http\Controllers\MessageController::class);
     Route::resource('depenses', App\Http\Controllers\DepenseController::class);
+    Route::resource('services', App\Http\Controllers\ServiceController::class);
     // Routes d'archivage
     Route::get('archived', [App\Http\Controllers\MessageController::class, 'archived'])->name('archived');
     Route::post('messages/{message}/archive', [App\Http\Controllers\MessageController::class, 'archive'])->name('messages.archive');
@@ -86,7 +87,6 @@ Route::middleware(['auth','check.client'])->group(function () {
         ->name('payments.download-proof');
     Route::get('/admin/dashboard/export', [DashboardController::class, 'export'])->name('admin.dashboard.export');
 
-
 });
 
 Route::name('client.')->prefix('client')->group(function () {
@@ -97,7 +97,6 @@ Route::name('client.')->prefix('client')->group(function () {
     Route::post('/login', [App\Http\Controllers\Client\AuthController::class, 'login'])->name('login.post');
     Route::get('/register', [App\Http\Controllers\Client\AuthController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [App\Http\Controllers\Client\AuthController::class, 'register'])->name('register.post');
-
 
     // Route accessible sans authentification
     Route::get('/properties', [App\Http\Controllers\Client\PropertyController::class, 'index'])->name('properties.index');
