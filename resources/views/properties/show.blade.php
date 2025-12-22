@@ -101,7 +101,7 @@
                                 <i class="bi bi-cash fs-4 text-primary me-2"></i>
                                 <div>
                                     <div class="small text-muted">Prix</div>
-                                    <div class="fw-bold">{{ number_format($property->price) }} €</div>
+                                    <div class="fw-bold">{{ number_format($property->price) }} BIF</div>
                                 </div>
                             </div>
                         </div>

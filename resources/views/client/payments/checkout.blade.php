@@ -33,7 +33,7 @@
                             <p class="mb-0">{{ $reservation->guests }} voyageurs</p>
                         </div>
                         <div class="col-md-4 text-end">
-                            <h4 class="text-primary mb-0">{{ number_format($reservation->total_price, 2) }} €</h4>
+                            <h4 class="text-primary mb-0">{{ number_format($reservation->total_price, 2) }} BIF</h4>
                         </div>
                     </div>
                 </div>

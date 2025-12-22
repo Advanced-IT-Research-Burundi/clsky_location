@@ -46,7 +46,7 @@
         <div class="col-lg-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h3 class="mb-4">{{ number_format($property->price) }} € <small class="text-muted">/ nuit</small></h3>
+                    <h3 class="mb-4">{{ number_format($property->price, 0, ',', ' ') }} BIF <small class="text-muted">/ nuit</small></h3>
 
                     <form action="{{ route('client.properties.reserve', $property) }}" method="POST" id="reservationForm">
                         @csrf
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (checkIn && checkOut) {
             const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
             const total = nights * pricePerNight;
-            document.getElementById('totalPrice').textContent = `${total.toFixed(2)} €`;
+            document.getElementById('totalPrice').textContent = `${total.toFixed(2)} BIF`;
         }
     }
 

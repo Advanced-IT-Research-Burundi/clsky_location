@@ -70,7 +70,7 @@
                                 <td>{{ $reservation->user->name }}</td>
                                 <td>{{ $reservation->check_in->format('d/m/Y') }}</td>
                                 <td>{{ $reservation->check_out->format('d/m/Y') }}</td>
-                                <td>{{ number_format($reservation->total_price, 2) }} €</td>
+                                <td>{{ number_format($reservation->total_price, 2) }} BIF</td>
                                 <td>
                                     <span class="badge bg-{{ $reservation->status_color }}">
                                         {{ $reservation->status_text }}

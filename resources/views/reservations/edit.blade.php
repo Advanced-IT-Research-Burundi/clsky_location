@@ -137,13 +137,13 @@
                         </div>
                         <div class="mb-3">
                             <label class="fw-bold">Prix par nuit</label>
-                            <p id="pricePerNight">{{ $reservation->property->price }}€</p>
+                            <p id="pricePerNight">{{ $reservation->property->price }} BIF</p>
                         </div>
                         <hr>
                         <div class="mb-0">
                             <label class="fw-bold">Total</label>
                             <p id="totalPrice" class="h4 text-primary mb-0">
-                                {{ $reservation->total_price }}€
+                                {{ $reservation->total_price }} BIF
                             </p>
                         </div>
                     </div>
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const total = nights * pricePerNight;
 
             document.getElementById('duration').textContent = `${nights} nuit${nights > 1 ? 's' : ''}`;
-            document.getElementById('totalPrice').textContent = `${total.toFixed(2)}€`;
+            document.getElementById('totalPrice').textContent = `${total.toFixed(2)} BIF`;
         }
     }
 

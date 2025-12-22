@@ -47,9 +47,9 @@
                         <div class="col-md-6">
                             <select name="price_range" class="form-select">
                                 <option value="">Plage de Prix</option>
-                                <option value="0-100000" {{ request('price_range') === '0-100000' ? 'selected' : '' }}>$0 - $100,000</option>
-                                <option value="100000-300000" {{ request('price_range') === '100000-300000' ? 'selected' : '' }}>$100,000 - $300,000</option>
-                                <option value="300000-plus" {{ request('price_range') === '300000-plus' ? 'selected' : '' }}>$300,000+</option>
+                                <option value="0-100000" {{ request('price_range') === '0-100000' ? 'selected' : '' }}>0 - 100,000 BIF</option>
+                                <option value="100000-300000" {{ request('price_range') === '100000-300000' ? 'selected' : '' }}>100,000 - 300,000 BIF</option>
+                                <option value="300000-plus" {{ request('price_range') === '300000-plus' ? 'selected' : '' }}>300,000+ BIF</option>
                             </select>
                         </div>
                         <div class="col-12">
@@ -112,13 +112,13 @@
 
                         <!-- Détails de la propriété -->
                         <div class="p-4 pb-0">
-                            <h5 class="text-primary mb-3">${{ number_format($property->price) }}</h5>
+                            <h5 class="text-primary mb-3">{{ number_format($property->price, 0, ',', ' ') }} BIF</h5>
                             <a class="d-block h5 mb-2 text-truncate" href="{{ route('client.properties.show', $property->id) }}">
                                 {{ $property->title }}
                             </a>
                             <p class="text-body mb-3">
                                 <i class="fa fa-map-marker-alt text-primary me-2"></i>
-                                {{ $property->address }}, {{ $property->city }}
+                                {{ $property->address }}, {{ $property->city }}, {{ $property->country }}
                             </p>
                         </div>
 

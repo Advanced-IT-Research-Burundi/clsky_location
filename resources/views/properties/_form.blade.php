@@ -85,7 +85,7 @@
                                        name="price" 
                                        value="{{ old('price', $property->price ?? '') }}" 
                                        required>
-                                <span class="input-group-text">€</span>
+                                <span class="input-group-text">BIF</span>
                                 @error('price')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
