@@ -1,216 +1,106 @@
 @extends('layouts.admin')
-{{-- Dans resources/views/properties/edit.blade.php --}}
-@push('styles')
-<style>
-.sortable-ghost {
-    opacity: 0.5;
-    background: #c8ebfb;
-}
 
-.property-image {
-    cursor: move;
-    transition: transform 0.2s;
-}
+@section('title', 'Modifier la propriété')
 
-.property-image:hover {
-    transform: scale(1.05);
-}
-</style>
-@endpush
-
-<div class="card">
-    <div class="card-header">
-        <h5 class="card-title mb-0">Gestion des images</h5>
-    </div>
-    <div class="card-body">
-        <!-- Upload Zone -->
-        <div class="upload-zone mb-4 p-4 text-center border-2 border-dashed rounded" 
-             id="dropZone">
-            <i class="bi bi-cloud-upload fs-1 text-primary"></i>
-            <p class="mb-2">Glissez vos images ici ou</p>
-            <input type="file" 
-                   id="imageInput" 
-                   multiple 
-                   accept="image/*" 
-                   class="d-none">
-            <button type="button" 
-                    class="btn btn-primary" 
-                    onclick="document.getElementById('imageInput').click()">
-                Sélectionnez des fichiers
-            </button>
+@section('content')
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">Modifier la propriété</h1>
+            <a href="{{ route('properties.index') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Retour
+            </a>
         </div>
 
-        <!-- Preview & Sorting Zone -->
-        <div class="row g-3" id="imageList">
-            @foreach($property->images as $image)
-                <div class="col-md-3" data-id="{{ $image->id }}">
-                    <div class="card property-image">
-                        <img src="{{ Storage::url($image->image_path) }}" 
-                             class="card-img-top" 
-                             alt="Image {{ $loop->iteration }}">
-                        <div class="card-body p-2">
-                            <div class="btn-group w-100">
-                                @if(!$image->is_primary)
-                                    <button type="button" 
-                                            class="btn btn-sm btn-outline-primary" 
-                                            onclick="setPrimaryImage({{ $image->id }})">
-                                        <i class="bi bi-star"></i>
-                                    </button>
-                                @endif
-                                <button type="button" 
-                                        class="btn btn-sm btn-outline-danger" 
-                                        onclick="deleteImage({{ $image->id }})">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                        @if($image->is_primary)
-                            <div class="position-absolute top-0 start-0 p-2">
-                                <span class="badge bg-primary">
-                                    <i class="bi bi-star-fill"></i> Principal
-                                </span>
-                            </div>
-                        @endif
+        <form action="{{ route('properties.update', $property->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            {{-- Formulaire partagé --}}
+            @include('properties._form', ['property' => $property])
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ route('properties.index') }}" class="btn btn-secondary">
+                            Annuler
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Mettre à jour
+                        </button>
                     </div>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        </form>
+        @if ($property->images->count())
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Images existantes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-2">
+                        @foreach ($property->images as $image)
+                            <div class="col-md-2 position-relative">
+                                <img src="{{ Storage::url($image->image_path) }}" class="img-thumbnail">
+
+                                <div class="position-absolute top-0 end-0 p-2">
+                                    {{-- Supprimer --}}
+                                    <form action="{{ route('properties.delete-image', $image->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+
+                                    {{-- Image principale --}}
+                                    @if (!$image->is_primary)
+                                        <form action="{{ route('properties.set-primary-image', $image->id) }}"
+                                            method="POST">
+                                            @csrf
+                                            <button class="btn btn-primary btn-sm mt-1">
+                                                <i class="bi bi-star"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+
+                                @if ($image->is_primary)
+                                    <span class="badge bg-primary position-absolute bottom-0 start-0 m-2">
+                                        Principale
+                                    </span>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
+
     </div>
-</div>
+@endsection
 
-@push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-<script>
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Configuration Sortable.js pour le drag & drop
-    const imageList = document.getElementById('imageList');
-    if (imageList) {
-        new Sortable(imageList, {
-            animation: 150,
-            ghostClass: 'bg-light',
-            onEnd: function(evt) {
-                const imageIds = [...evt.to.children].map(el => el.dataset.id);
-                updateImageOrder(imageIds);
-            }
-        });
-    }
-
-    // Fonction pour mettre à jour l'ordre des images
-    function updateImageOrder(imageIds) {
-        fetch('{{ route('properties.update-image-order', $property) }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({ imageIds })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                alert('Erreur lors de la mise à jour de l\'ordre des images');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Une erreur est survenue');
-        });
-    }
-new Sortable(document.getElementById('imageList'), {
-    animation: 150,
-    ghostClass: 'sortable-ghost',
-    onEnd: function(evt) {
-        const imageIds = [...evt.to.children].map(el => el.dataset.id);
-        updateImageOrder(imageIds);
-    }
-});
-
-// Drag & Drop Upload
-const dropZone = document.getElementById('dropZone');
-const imageInput = document.getElementById('imageInput');
-
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropZone.addEventListener(eventName, preventDefaults, false);
-});
-
-function preventDefaults(e) {
-    e.preventDefault();
-    e.stopPropagation();
-}
-
-['dragenter', 'dragover'].forEach(eventName => {
-    dropZone.addEventListener(eventName, highlight, false);
-});
-
-['dragleave', 'drop'].forEach(eventName => {
-    dropZone.addEventListener(eventName, unhighlight, false);
-});
-
-function highlight(e) {
-    dropZone.classList.add('bg-light');
-}
-
-function unhighlight(e) {
-    dropZone.classList.remove('bg-light');
-}
-
-dropZone.addEventListener('drop', handleDrop, false);
-imageInput.addEventListener('change', handleFiles, false);
-
-function handleDrop(e) {
-    const dt = e.dataTransfer;
-    const files = dt.files;
-    handleFiles({target: {files}});
-}
-
-function handleFiles(e) {
-    const files = [...e.target.files];
-    uploadFiles(files);
-}
-
-function uploadFiles(files) {
-    const formData = new FormData();
-    files.forEach(file => formData.append('images[]', file));
-    
-    // Ajouter le token CSRF
-    formData.append('_token', '{{ csrf_token() }}');
-
-    fetch('{{ route('properties.upload-images', $property) }}', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            window.location.reload();
-        } else {
-            alert(data.message || 'Une erreur est survenue');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Une erreur est survenue lors du téléchargement');
-    });
-}
-
-function updateImageOrder(imageIds) {
-    fetch('{{ route('properties.update-image-order', $property) }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ imageIds })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (!data.success) {
-            alert('Erreur lors de la mise à jour de l\'ordre des images');
-        }
-    });
-}
-</script>
+@push('styles')
+    <link href="https://cdn.jsdelivr.net/npm/dropzone@5.9.3/dist/min/dropzone.min.css" rel="stylesheet">
 @endpush
 
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.3/dist/min/dropzone.min.js"></script>
+    <script>
+        Dropzone.autoDiscover = false;
+
+        const dropzone = new Dropzone("#imageDropzone", {
+            url: "{{ route('properties.update', $property->id) }}",
+            method: "POST",
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            parallelUploads: 5,
+            maxFiles: 10,
+            maxFilesize: 2, // MB
+            acceptedFiles: 'image/*',
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        });
+    </script>
+@endpush

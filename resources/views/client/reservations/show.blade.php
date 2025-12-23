@@ -10,7 +10,7 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
+    </div>
     @endif
     @if(session('error'))
     <div class="alert alert-danger" role="alert">
@@ -61,7 +61,7 @@
 
                     <div class="border-top pt-3">
                         <h6 class="text-muted">Prix total</h6>
-                        <h4 class="mb-0">{{ number_format($reservation->total_price, 2) }} €</h4>
+                        <h4 class="mb-0">{{ number_format($reservation->total_price, 2) }} BIF</h4>
                     </div>
                 </div>
                 <div class="card-footer bg-light">
@@ -147,7 +147,7 @@
                                     </small>
                                 </div>
                                 <div class="text-end">
-                                    <h6 class="mb-0">{{ number_format($payment->amount, 2) }} €</h6>
+                                    <h6 class="mb-0">{{ number_format($payment->amount, 2) }} BIF</h6>
                                     <span class="badge bg-{{ $payment->status === 'completed' ? 'success' : 'warning' }}">
                                         {{ ucfirst($payment->status) }}
                                     </span>

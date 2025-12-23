@@ -20,24 +20,40 @@ class PropertyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string'],
-            'slug' => ['required', 'string', 'unique:properties,slug'],
+            'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'address' => ['required', 'string'],
             'city' => ['required', 'string'],
             'country' => ['required', 'string'],
             'postal_code' => ['required', 'string'],
-            'price' => ['required', 'numeric', 'between:-99999999.99,99999999.99'],
-            'bedrooms' => ['required', 'integer'],
-            'bathrooms' => ['required', 'integer'],
-            'area' => ['required', 'numeric', 'between:-999999.99,999999.99'],
-            'floor' => ['nullable', 'integer'],
-            'furnished' => ['required'],
-            'available' => ['required'],
-            'type' => ['required', 'in:apartment,studio,duplex'],
-            'status' => ['required', 'in:available,rented,maintenance'],
-            'featured' => ['required'],
-            'user_id' => ['required', 'integer', 'exists:users,id'],
+
+            'price' => ['required', 'numeric', 'min:0'],
+            'bedrooms' => ['required', 'integer', 'min:0'],
+            'bathrooms' => ['required', 'integer', 'min:0'],
+            'area' => ['required', 'numeric', 'min:0'],
+            'floor' => ['nullable', 'integer', 'min:0'],
+
+            'type' => ['required', 'string', 'in:apartment,studio,duplex'],
+            'status' => ['required', 'string', 'in:available,rented,maintenance'],
+
+            // ✅ checkbox = nullable + boolean
+            'furnished' => ['nullable', 'boolean'],
+            'featured' => ['nullable', 'boolean'],
+
+            // ✅ images
+            'images' => ['nullable', 'array'],
+            'images.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            // ✅ services
+            'services' => ['nullable', 'array'],
+            'services.*' => ['exists:services,id'],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'furnished' => $this->boolean('furnished'),
+            'featured' => $this->boolean('featured'),
+        ]);
     }
 }

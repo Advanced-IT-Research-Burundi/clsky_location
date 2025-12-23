@@ -73,7 +73,7 @@
                             <div class="col-md-3 text-end">
                                 <div class="mb-2">
                                     <h6 class="mb-0">Total</h6>
-                                    <h5 class="text-primary mb-3">{{ number_format($reservation->total_price, 2) }} €</h5>
+                                    <h5 class="text-primary mb-3">{{ number_format($reservation->total_price, 2) }} BIF</h5>
                                 </div>
                                 <a href="{{ route('client.reservations.show', $reservation) }}"
                                    class="btn btn-outline-primary btn-sm w-100 mb-2">

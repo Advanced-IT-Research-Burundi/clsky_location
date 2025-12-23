@@ -21,6 +21,10 @@ class DepenseUpdateRequest extends FormRequest
     {
         return [
             
+            'montant' => 'required|numeric|min:0',
+            'description' => 'nullable|string|max:255',
+            'date_depense' => 'required|date',
+            'categorie_id' => 'required|exists:categories,id'
         ];
     }
 }
