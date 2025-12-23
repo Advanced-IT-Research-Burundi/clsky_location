@@ -22,6 +22,7 @@
                             <th>ID</th>
                             <th>Titre</th>
                             <th>Montant</th>
+                            <th>Justificatif</th>
                             <th>Date</th>
                             <th>Catégorie</th>
                             <th>Actions</th>
@@ -30,10 +31,15 @@
                     <tbody>
                         @forelse($depenses ?? [] as $depense)
                             <tr>
-                                <td>{{ $depense->id }}</td>
+                                <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $depense->titre }}</td>
                                 <td>{{ number_format($depense->montant, 2) }} €</td>
-                                <td>{{ $depense->date_depense->format('d/m/Y') }}</td>
+                                <td>
+                                    <a href="{{ asset('storage/' . $depense->justificatif) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        Voir Justificatif
+                                    </a>
+                                </td>
+                                <td>{{ $depense->date_depense  }}</td>
                                 <td>{{ $depense->categorie }}</td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
@@ -44,6 +50,10 @@
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
+                                    <form id="delete-form-{{ $depense->id }}" action="{{ route('depenses.destroy', $depense) }}" method="POST" class="d-none">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                 </td>
                             </tr>
                         @empty
