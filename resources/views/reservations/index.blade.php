@@ -66,7 +66,7 @@
                         @forelse($reservations as $reservation)
                             <tr>
                                 <td>{{ $reservation->id }}</td>
-                                <td>{{ $reservation->property->title }}</td>
+                                <td>{{ $reservation->property->title ?? '(Propriété supprimée)'}}</td>
                                 <td>{{ $reservation->user->name }}</td>
                                 <td>{{ $reservation->check_in->format('d/m/Y') }}</td>
                                 <td>{{ $reservation->check_out->format('d/m/Y') }}</td>

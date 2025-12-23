@@ -14,7 +14,17 @@ class Depense extends Model
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'titre',
+        'description',
+        'montant',
+        'date_depense',
+        'categorie',
+        'mode_paiement',
+        'reference',
+        'justificatif',
+        'user_id',
+    ];
 
     /**
      * The attributes that should be cast to native types.

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DepenseStoreRequest;
 use App\Models\Depense;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DepenseController extends Controller
 {
@@ -28,19 +29,15 @@ class DepenseController extends Controller
         return view('depense.create', compact('categories', 'modes_paiement'));
     }
 
-    public function store(Request $request)
+    public function store(DepenseStoreRequest $request)
     {
-        $validated = $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'montant' => 'required|numeric|min:0',
-            'date_depense' => 'required|date',
-            'categorie' => 'required|string',
-            'mode_paiement' => 'required|string',
-            'reference' => 'nullable|string|max:255',
-        ]);
-
+        $validated = $request->validated();
         $validated['user_id'] = Auth::id();
+
+        if ($request->hasFile('justificatif')) {
+            $validated['justificatif'] = $request->file('justificatif')
+                ->store('justificatifs', 'public');
+        }
 
         Depense::create($validated);
 
@@ -50,18 +47,14 @@ class DepenseController extends Controller
 
     public function show(Depense $depense)
     {
-        if ($depense->user_id !== Auth::id()) {
-            abort(403);
-        }
+        $this->authorizeDepense($depense);
 
         return view('depense.show', compact('depense'));
     }
 
     public function edit(Depense $depense)
     {
-        if ($depense->user_id !== Auth::id()) {
-            abort(403);
-        }
+        $this->authorizeDepense($depense);
 
         $categories = ['Loyer', 'Nourriture', 'Transport', 'Loisirs', 'Santé', 'Autres'];
         $modes_paiement = ['Espèces', 'Carte bancaire', 'Virement', 'Chèque', 'Mobile Money'];
@@ -69,21 +62,21 @@ class DepenseController extends Controller
         return view('depense.edit', compact('depense', 'categories', 'modes_paiement'));
     }
 
-    public function update(Request $request, Depense $depense)
+    public function update(DepenseStoreRequest $request, Depense $depense)
     {
-        if ($depense->user_id !== Auth::id()) {
-            abort(403);
-        }
+        $this->authorizeDepense($depense);
 
-        $validated = $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'montant' => 'required|numeric|min:0',
-            'date_depense' => 'required|date',
-            'categorie' => 'required|string',
-            'mode_paiement' => 'required|string',
-            'reference' => 'nullable|string|max:255',
-        ]);
+        $validated = $request->validated();
+
+        if ($request->hasFile('justificatif')) {
+
+            if ($depense->justificatif) {
+                Storage::disk('public')->delete($depense->justificatif);
+            }
+
+            $validated['justificatif'] = $request->file('justificatif')
+                ->store('justificatifs', 'public');
+        }
 
         $depense->update($validated);
 
@@ -93,13 +86,21 @@ class DepenseController extends Controller
 
     public function destroy(Depense $depense)
     {
-        if ($depense->user_id !== Auth::id()) {
-            abort(403);
+        $this->authorizeDepense($depense);
+
+        if ($depense->justificatif) {
+            Storage::disk('public')->delete($depense->justificatif);
         }
 
         $depense->delete();
 
         return redirect()->route('depenses.index')
             ->with('success', 'Dépense supprimée avec succès.');
+    }
+    private function authorizeDepense(Depense $depense)
+    {
+        if ($depense->user_id !== Auth::id()) {
+            abort(403);
+        }
     }
 }
