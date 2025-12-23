@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="fs-5 fw-bold text-primary">{{ number_format($property->price) }} </span>
+                        <span class="fs-5 fw-bold text-primary">{{ number_format($property->price) }} BIF</span>
                         <span class="badge bg-info">{{ $property->type_text }}</span>
                     </div>
                 </div>

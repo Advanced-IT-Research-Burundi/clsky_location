@@ -23,46 +23,76 @@
     </div>
 
     <!-- Résumé des paiements -->
-    <div class="row mb-4">
-        <div class="col-md-3">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h6 class="card-title">Total payé</h6>
-                    <h3 class="mb-0">
-                        {{ number_format($payments->where('status', 'completed')->sum('amount'), 2) }} €
+    <div class="row mb-4 g-4">
+
+    <!-- Total payé -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 rounded-4 bg-primary text-white h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="card-title text-uppercase fw-semibold mb-2">Total payé</h6>
+                    <h3 class="fw-bold mb-0">
+                        {{ number_format($payments->where('status', 'completed')->sum('amount'), 2) }} BIF
                     </h3>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-warning text-dark">
-                <div class="card-body">
-                    <h6 class="card-title">En attente</h6>
-                    <h3 class="mb-0">
-                        {{ number_format($payments->where('status', 'pending')->sum('amount'), 2) }} €
-                    </h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <h6 class="card-title">Nombre de transactions</h6>
-                    <h3 class="mb-0">{{ $payments->count() }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h6 class="card-title">Dernière transaction</h6>
-                    <h3 class="mb-0">
-                        {{ $payments->first() ? $payments->first()->created_at->format('d/m/Y') : 'N/A' }}
-                    </h3>
+                <div class="icon-circle bg-white text-primary">
+                    <i data-lucide="wallet"></i>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- En attente -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 rounded-4 bg-warning text-dark h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="card-title text-uppercase fw-semibold mb-2">En attente</h6>
+                    <h3 class="fw-bold mb-0">
+                        {{ number_format($payments->where('status', 'pending')->sum('amount'), 2) }} BIF
+                    </h3>
+                </div>
+                <div class="icon-circle bg-dark text-warning">
+                    <i data-lucide="clock"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nombre de transactions -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 rounded-4 bg-info text-white h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="card-title text-uppercase fw-semibold mb-2">Transactions</h6>
+                    <h3 class="fw-bold mb-0">{{ $payments->count() }}</h3>
+                </div>
+                <div class="icon-circle bg-white text-info">
+                    <i data-lucide="repeat"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dernière transaction -->
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 rounded-4 bg-success text-white h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="card-title text-uppercase fw-semibold mb-2">Dernière transaction</h6>
+                    <h3 class="fw-bold mb-0">
+                        {{ $payments->first() ? $payments->first()->created_at->format('d/m/Y') : 'N/A' }}
+                    </h3>
+                </div>
+                <div class="icon-circle bg-white text-success">
+                    <i data-lucide="calendar-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
     <!-- Liste des paiements -->
     <div class="card shadow-sm">
@@ -100,7 +130,7 @@
                                         <i class="bi bi-money"></i> Cash Transfer
                                     @endif
                                 </td>
-                                <td>{{ number_format($payment->amount, 2) }} €</td>
+                                <td>{{ number_format($payment->amount, 2) }} BIF</td>
                                 <td>
                                     <span class="badge bg-{{ $payment->status_color }}">
                                         {{ $payment->status_text }}
@@ -155,5 +185,28 @@
 .bi {
     margin-right: 0.25rem;
 }
+.icon-circle {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-circle svg {
+    width: 26px;
+    height: 26px;
+}
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
 </style>
 @endsection
