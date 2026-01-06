@@ -13,22 +13,22 @@ class PaymentController extends Controller
     public function index()
     {
         $query = Payment::with(['user', 'reservation'])
-            ->when(request('search'), function($query, $search) {
+            ->when(request('search'), function ($query, $search) {
                 $query->where('transaction_id', 'like', "%{$search}%")
-                    ->orWhereHas('user', function($q) use ($search) {
+                    ->orWhereHas('user', function ($q) use ($search) {
                         $q->where('name', 'like', "%{$search}%");
                     });
             })
-            ->when(request('status'), function($query, $status) {
+            ->when(request('status'), function ($query, $status) {
                 $query->where('status', $status);
             })
-            ->when(request('payment_method'), function($query, $method) {
+            ->when(request('payment_method'), function ($query, $method) {
                 $query->where('payment_method', $method);
             })
-            ->when(request('start_date'), function($query, $date) {
+            ->when(request('start_date'), function ($query, $date) {
                 $query->whereDate('created_at', '>=', $date);
             })
-            ->when(request('end_date'), function($query, $date) {
+            ->when(request('end_date'), function ($query, $date) {
                 $query->whereDate('created_at', '<=', $date);
             });
 
@@ -86,7 +86,6 @@ class PaymentController extends Controller
 
             return redirect()->route('payments.show', $payment)
                 ->with('success', 'Paiement créé avec succès');
-
         } catch (\Exception $e) {
             // dump($e);
             return back()->with('error', $e->getMessage())
@@ -105,22 +104,10 @@ class PaymentController extends Controller
         return view('payment.edit', compact('payment'));
     }
 
-    public function update(Request $request, Payment $payment)
+    public function update(PaymentUpdateRequest $request, Payment $payment)
     {
-        $request->validate([
-            'amount' => 'required|numeric|min:0',
-            'payment_method' => 'required|in:card,bank_transfer,cash',
-            'transaction_id' => 'nullable|string|max:255',
-            'status' => 'required|in:pending,completed,failed,refunded'
-        ]);
-
         try {
-            $payment->update([
-                'amount' => $request->amount,
-                'payment_method' => $request->payment_method,
-                'transaction_id' => $request->transaction_id,
-                'status' => $request->status
-            ]);
+            $payment->update($request->validated());
 
             // Mettre à jour le statut de paiement de la réservation
             if ($request->status === 'completed') {
@@ -129,14 +116,16 @@ class PaymentController extends Controller
                 $payment->reservation->update(['payment_status' => 'refunded']);
             }
 
-            return redirect()->route('payments.show', $payment)
+            return redirect()
+                ->route('payments.show', $payment)
                 ->with('success', 'Paiement mis à jour avec succès');
-
         } catch (\Exception $e) {
-            return back()->with('error', 'Une erreur est survenue lors de la mise à jour du paiement.')
+            return back()
+                ->with('error', 'Une erreur est survenue lors de la mise à jour du paiement.')
                 ->withInput();
         }
     }
+
 
     public function destroy(Request $request, Payment $payment)
     {
