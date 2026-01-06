@@ -39,7 +39,7 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <h6 class="text-muted mb-2">Revenus totaux</h6>
-                    <h3 class="mb-0">{{ number_format($stats['total_revenue'], 2) }} €</h3>
+                    <h3 class="mb-0">{{ number_format($stats['total_revenue'], 2) }} BIF</h3>
                     <div class="mt-2 small">
                         <i class="bi bi-graph-up text-success"></i>
                         <span class="text-success">+{{ number_format($stats['revenue_growth'] ?? 0, 1) }}%</span>
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             labels: {!! json_encode($charts['revenue_by_month']->pluck('month')) !!},
             datasets: [{
-                label: 'Revenus (€)',
+                label: 'Revenus (BIF)',
                 data: {!! json_encode($charts['revenue_by_month']->pluck('total')) !!},
                 borderColor: '#3b82f6',
                 tension: 0.1

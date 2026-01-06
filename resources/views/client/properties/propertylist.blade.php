@@ -74,7 +74,7 @@
 
                             <!-- Détails de la propriété -->
                             <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">${{ number_format($property->price) }}</h5>
+                                <h5 class="text-primary mb-3">{{ number_format($property->price) }} BIF</h5>
                                 <a class="d-block h5 mb-2 text-truncate" href="{{ route('client.properties.show', $property->id) }}">
                                     {{ $property->title }}
                                 </a>

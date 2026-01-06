@@ -51,7 +51,7 @@
                             <h3 class="mb-0">{{ $tousTotalRevenue }} BIF</h3>
                         </div>
                         <div class="text-success bg-success bg-opacity-10 p-3 rounded-circle">
-                            <i class="bi bi-currency-euro fs-1"></i>
+                            <i class="bi bi-currency-bif fs-1"></i>
                         </div>
                     </div>
                     <div class="progress mt-3" style="height: 4px;">
