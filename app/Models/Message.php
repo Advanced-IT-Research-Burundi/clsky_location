@@ -60,4 +60,8 @@ class Message extends Model
     {
         return $this->hasMany(MessageAttachment::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'sender_id');
+    }
 }

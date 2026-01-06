@@ -3,33 +3,53 @@
 @section('content')
 <div class="container py-5">
     <div class="row mb-4">
-        <div class="col-12">
-            <h2 class="mb-4">Mes réservations</h2>
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Mes réservations</h2>
+            <a href="{{ route('client.reservations.create') }}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Nouvelle réservation
+            </a>
         </div>
     </div>
 
-    <div class="row">
-        <!-- Filtres -->
+    <div class="row mb-4">
+        <!-- Filtres et recherche -->
         <div class="col-lg-3 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Filtres</h5>
+                    <h5 class="card-title mb-3">Filtres & Recherche</h5>
                     <form action="{{ route('client.reservations.index') }}" method="GET">
+                        <!-- Statut -->
                         <div class="mb-3">
                             <label class="form-label">Statut</label>
                             <select name="status" class="form-select">
                                 <option value="">Tous</option>
-                                <option value="pending" {{ request('status') === 'en_attente' ? 'selected' : '' }}>
-                                    En attente
-                                </option>
-                                <option value="confirmed" {{ request('status') === 'confirmee' ? 'selected' : '' }}>
-                                    Confirmée
-                                </option>
-                                <option value="cancelled" {{ request('status') === 'annulee' ? 'selected' : '' }}>
-                                    Annulée
-                                </option>
+                                <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>En attente</option>
+                                <option value="confirmed" {{ request('status') === 'confirmed' ? 'selected' : '' }}>Confirmée</option>
+                                <option value="cancelled" {{ request('status') === 'cancelled' ? 'selected' : '' }}>Annulée</option>
                             </select>
                         </div>
+
+                        <!-- Propriété -->
+                        <div class="mb-3">
+                            <label class="form-label">Propriété</label>
+                            <select name="property_id" class="form-select">
+                                <option value="">Toutes</option>
+                                @foreach($properties as $property)
+                                    <option value="{{ $property->id }}"
+                                        {{ request('property_id') == $property->id ? 'selected' : '' }}>
+                                        {{ $property->titre }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Recherche -->
+                        <div class="mb-3">
+                            <label class="form-label">Recherche</label>
+                            <input type="text" name="search" class="form-control" placeholder="Nom ou propriété"
+                                   value="{{ request('search') }}">
+                        </div>
+
                         <button type="submit" class="btn btn-primary w-100">Appliquer</button>
                     </form>
                 </div>
@@ -63,8 +83,7 @@
                                     <i class="bi bi-people"></i>
                                     {{ $reservation->guests }} voyageurs
                                 </p>
-                                <span class="badge bg-{{ $reservation->status === 'confirmed' ? 'success' :
-                                                       ($reservation->status === 'pending' ? 'warning' : 'danger') }}">
+                                <span class="badge bg-{{ $reservation->status === 'confirmed' ? 'success' : ($reservation->status === 'pending' ? 'warning' : 'danger') }}">
                                     {{ ucfirst($reservation->status) }}
                                 </span>
                             </div>
@@ -75,16 +94,28 @@
                                     <h6 class="mb-0">Total</h6>
                                     <h5 class="text-primary mb-3">{{ number_format($reservation->total_price, 2) }} BIF</h5>
                                 </div>
+
                                 <a href="{{ route('client.reservations.show', $reservation) }}"
                                    class="btn btn-outline-primary btn-sm w-100 mb-2">
                                     Voir les détails
                                 </a>
+
                                 @if($reservation->status === 'pending')
                                     <a href="{{ route('client.payments.initiate', $reservation) }}"
-                                       class="btn btn-primary btn-sm w-100">
+                                       class="btn btn-primary btn-sm w-100 mb-2">
                                         Payer maintenant
                                     </a>
                                 @endif
+
+                                <!-- Formulaire de suppression -->
+                                <form action="{{ route('reservations.destroy', $reservation) }}" method="POST" class="d-inline w-100">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm w-100"
+                                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?')">
+                                        Supprimer
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -104,23 +135,15 @@
 
             <!-- Pagination -->
             <div class="d-flex justify-content-center">
-                {{ $reservations->links() }}
+                {{ $reservations->appends(request()->query())->links() }}
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    .card {
-        border: none;
-        border-radius: 10px;
-    }
-    .badge {
-        padding: 0.5em 1em;
-        border-radius: 30px;
-    }
-    .bi {
-        margin-right: 0.5rem;
-    }
+    .card { border: none; border-radius: 10px; }
+    .badge { padding: 0.5em 1em; border-radius: 30px; }
+    .bi { margin-right: 0.5rem; }
 </style>
 @endsection

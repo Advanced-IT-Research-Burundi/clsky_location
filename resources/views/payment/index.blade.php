@@ -72,8 +72,8 @@
                 <div class="card border-0 shadow-sm">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="text-muted mb-2">Total Paiements</h6>
-                            <h3 class="mb-0">{{ number_format($totalAmount ?? 0, 2) }} BIF</h3>
+                            <h6 class="text-muted mb-2">{{ $stat['label'] }}</h6>
+                            <h3 class="mb-0">{{ number_format($stat['value'], 2) }} BIF</h3>
                         </div>
                         <div class="{{ $stat['bg'] }}">
                             <i class="bi {{ $stat['icon'] }} fs-1"></i>
@@ -81,52 +81,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-muted mb-2">En attente</h6>
-                            <h3 class="mb-0">{{ number_format($pendingAmount ?? 0, 2) }} BIF</h3>
-                        </div>
-                        <div class="text-warning">
-                            <i class="bi bi-hourglass-split fs-1"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-muted mb-2">Complétés</h6>
-                            <h3 class="mb-0">{{ number_format($completedAmount ?? 0, 2) }} BIF</h3>
-                        </div>
-                        <div class="text-success">
-                            <i class="bi bi-check-circle fs-1"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="text-muted mb-2">Remboursés</h6>
-                            <h3 class="mb-0">{{ number_format($refundedAmount ?? 0, 2) }} BIF</h3>
-                        </div>
-                        <div class="text-info">
-                            <i class="bi bi-arrow-repeat fs-1"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 
     <!-- Liste des paiements -->
@@ -221,4 +176,5 @@ function confirmDelete(id) {
 }
 </script>
 @endpush
+
 @endsection

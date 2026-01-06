@@ -80,4 +80,9 @@ class User extends Authenticatable
     const ROLE_ADMIN = 'admin';
     const ROLE_CLIENT = 'client';
 
+    public function messagesSent()
+    {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+
 }
