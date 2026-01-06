@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <h6 class="text-muted mb-2">En Attente</h6>
-                    <h3 class="mb-0">{{ number_format($pendingAmount, 2) }} €</h3>
+                    <h3 class="mb-0">{{ number_format($pendingAmount, 2) }} BIF</h3>
                     <div class="progress mt-3" style="height: 4px;">
                         <div class="progress-bar bg-warning"
                              style="width: {{ $totalAmount>0 ? (($pendingAmount/$totalAmount) * 100): 0 }}%"></div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <h6 class="text-muted mb-2">Complétés</h6>
-                    <h3 class="mb-0">{{ number_format($completedAmount, 2) }} €</h3>
+                    <h3 class="mb-0">{{ number_format($completedAmount, 2) }} BIF</h3>
                     <div class="progress mt-3" style="height: 4px;">
                         <div class="progress-bar bg-success"
                              style="width: {{ $totalAmount>0?(($completedAmount/$totalAmount) * 100): 0  }}%"></div>
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <h6 class="text-muted mb-2">Remboursements</h6>
-                    <h3 class="mb-0">{{ number_format($refundedAmount, 2) }} €</h3>
+                    <h3 class="mb-0">{{ number_format($refundedAmount, 2) }} BIF</h3>
                     <div class="progress mt-3" style="height: 4px;">
                         <div class="progress-bar bg-danger"
                              style="width: {{ $totalAmount?(($refundedAmount/$totalAmount) * 100): 0 }}%"></div>
@@ -134,7 +134,7 @@
                         </div>
                         <div class="ms-3">
                             <h6 class="text-muted mb-1">Prix Moyen</h6>
-                            <h4 class="mb-0">{{ number_format($averagePrice, 2) }} €</h4>
+                            <h4 class="mb-0">{{ number_format($averagePrice, 2) }} BIF</h4>
                         </div>
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                                 </div>
                             </td>
                             <td>
-                                <h6 class="mb-0">{{ number_format($propertyRevenue, 2) }} €</h6>
+                                <h6 class="mb-0">{{ number_format($propertyRevenue, 2) }} BIF</h6>
                                 <div class="small text-success">
                                     <i class="bi bi-arrow-up"></i>
                                     {{ $totalAmount >0 ?number_format(($propertyRevenue/$totalAmount) * 100, 1) : 0}}%
@@ -247,12 +247,12 @@
                                 <div class="d-flex flex-column gap-1">
                                     @if($completedPayments > 0)
                                         <span class="badge bg-success">
-                                            {{ number_format($completedPayments, 2) }} € complétés
+                                            {{ number_format($completedPayments, 2) }} BIF complétés
                                         </span>
                                     @endif
                                     @if($pendingPayments > 0)
                                         <span class="badge bg-warning">
-                                            {{ number_format($pendingPayments, 2) }} € en attente
+                                            {{ number_format($pendingPayments, 2) }} BIF en attente
                                         </span>
                                     @endif
                                 </div>
