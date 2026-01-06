@@ -45,7 +45,7 @@
                                             data-amount="{{ $reservation->total_price }}"
                                             {{ old('reservation_id') == $reservation->id ? 'selected' : '' }}>
                                         #{{ $reservation->id }} - {{ $reservation->property->title }}
-                                        ({{ number_format($reservation->total_price, 2) }} €)
+                                        ({{ number_format($reservation->total_price, 2) }} BIF)
                                     </option>
                                 @endforeach
                             </select>
@@ -65,7 +65,7 @@
                                        name="amount"
                                        value="{{ old('amount') }}"
                                        required>
-                                <span class="input-group-text">€</span>
+                                <span class="input-group-text">BIF</span>
                                 @error('amount')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

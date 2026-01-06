@@ -11,11 +11,11 @@
         <!-- Spinner End -->
 
         <!-- Header Start -->
-        <div class="container-fluid header bg-white p-0">
+       <div class="container-fluid header bg-white p-0 mt-5">
             <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
                 <div class="col-md-6 p-5 mt-lg-5">
                     <h1 class="display-5 animated fadeIn mb-4">Trouvez une <span class="text-primary">Maison Idéale</span> pour votre famille</h1>
-                    <p class="animated fadeIn mb-4 pb-2">Profitez de l’opportunité de trouver un espace qui convient parfaitement à votre style de vie et à vos besoins. Découvrez des options de logement adaptées à toutes les familles.</p>
+                    <p class="animated fadeIn mb-4 pb-2">Profitez de l'opportunité de trouver un espace qui convient parfaitement à votre style de vie et à vos besoins. Découvrez des options de logement adaptées à toutes les familles.</p>
                     <a href="" class="btn btn-primary py-3 px-5 me-3 animated fadeIn">Commencez Maintenant</a>
                 </div>
                 <div class="col-md-6 animated fadeIn">
@@ -30,7 +30,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Header End -->
 
 

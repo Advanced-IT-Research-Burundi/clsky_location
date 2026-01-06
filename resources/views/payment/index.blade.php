@@ -75,7 +75,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-muted mb-2">Total Paiements</h6>
-                            <h3 class="mb-0">{{ number_format($totalAmount ?? 0, 2) }} €</h3>
+                            <h3 class="mb-0">{{ number_format($totalAmount ?? 0, 2) }} BIF</h3>
                         </div>
                         <div class="text-primary">
                             <i class="bi bi-cash-stack fs-1"></i>
@@ -90,7 +90,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-muted mb-2">En attente</h6>
-                            <h3 class="mb-0">{{ number_format($pendingAmount ?? 0, 2) }} €</h3>
+                            <h3 class="mb-0">{{ number_format($pendingAmount ?? 0, 2) }} BIF</h3>
                         </div>
                         <div class="text-warning">
                             <i class="bi bi-hourglass-split fs-1"></i>
@@ -105,7 +105,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-muted mb-2">Complétés</h6>
-                            <h3 class="mb-0">{{ number_format($completedAmount ?? 0, 2) }} €</h3>
+                            <h3 class="mb-0">{{ number_format($completedAmount ?? 0, 2) }} BIF</h3>
                         </div>
                         <div class="text-success">
                             <i class="bi bi-check-circle fs-1"></i>
@@ -120,7 +120,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-muted mb-2">Remboursés</h6>
-                            <h3 class="mb-0">{{ number_format($refundedAmount ?? 0, 2) }} €</h3>
+                            <h3 class="mb-0">{{ number_format($refundedAmount ?? 0, 2) }} BIF</h3>
                         </div>
                         <div class="text-info">
                             <i class="bi bi-arrow-repeat fs-1"></i>
@@ -159,7 +159,7 @@
                                     </a>
                                 </td>
                                 <td>{{ $payment->user->name }}</td>
-                                <td>{{ number_format($payment->amount, 2) }} €</td>
+                                <td>{{ number_format($payment->amount, 2) }} BIF</td>
                                 <td>
                                     @switch($payment->payment_method)
                                         @case('card')
