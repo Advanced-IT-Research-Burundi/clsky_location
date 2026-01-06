@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use App\Models\PropertyImage;
+use App\Models\PropertyDetail;
 use App\Models\Service;
 use App\Http\Requests\PropertyStoreRequest;
 use App\Http\Requests\PropertyUpdateRequest;
@@ -14,6 +15,9 @@ use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class PropertyController extends Controller
 {
@@ -34,7 +38,7 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Property::query()
-            ->with(['images', 'user', 'services'])
+            ->with(['images', 'user', 'services', 'details'])
             ->withCount('reservations')
             ->when(request('search'), function ($query, $search) {
                 $query->where(function ($q) use ($search) {
@@ -44,27 +48,23 @@ class PropertyController extends Controller
                         ->orWhere('city', 'like', "%{$search}%");
                 });
             })
-            ->when(request('type'), fn ($q, $type) => $q->where('type', $type))
-            ->when(request('status'), fn ($q, $status) => $q->where('status', $status))
-            ->when(request('min_price'), fn ($q, $price) => $q->where('price', '>=', $price))
-            ->when(request('max_price'), fn ($q, $price) => $q->where('price', '<=', $price))
-            ->when(request('bedrooms'), fn ($q, $bedrooms) => $q->where('bedrooms', '>=', $bedrooms))
-            ->when(request('bathrooms'), fn ($q, $bathrooms) => $q->where('bathrooms', '>=', $bathrooms))
+            ->when(request('type'), fn($q, $type) => $q->where('type', $type))
+            ->when(request('status'), fn($q, $status) => $q->where('status', $status))
+            ->when(request('min_price'), fn($q, $price) => $q->where('price', '>=', $price))
+            ->when(request('max_price'), fn($q, $price) => $q->where('price', '<=', $price))
+            ->when(request('bedrooms'), fn($q, $bedrooms) => $q->where('bedrooms', '>=', $bedrooms))
+            ->when(request('bathrooms'), fn($q, $bathrooms) => $q->where('bathrooms', '>=', $bathrooms))
             ->latest()
             ->paginate(12)
             ->withQueryString();
 
-            $services = Service::all();
-
-        return view('properties.index', compact('properties', 'services'));
+        return view('properties.index', compact('properties'));
     }
 
     public function create()
     {
         $property = new Property();
-        $services = Service::all();
-
-        return view('properties.create', compact('property', 'services'));
+        return view('properties.create', compact('property'));
     }
 
     public function store(PropertyStoreRequest $request)
@@ -78,10 +78,15 @@ class PropertyController extends Controller
 
             $property = Property::create($data);
 
+            // Synchroniser les services
             if ($request->filled('services')) {
                 $property->services()->sync($request->services);
             }
 
+            // Gérer les détails de la propriété
+            $this->handlePropertyDetails($property, $request);
+
+            // Gérer les images
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     if (!$this->imageService->isValidImage($image)) {
@@ -100,25 +105,23 @@ class PropertyController extends Controller
 
             return redirect()->route('properties.index')
                 ->with('success', 'Propriété créée avec succès');
-
         } catch (\Exception $e) {
             \DB::rollBack();
+            \Log::error('Erreur création propriété: ' . $e->getMessage());
             return back()->with('error', 'Erreur lors de la création')->withInput();
         }
     }
 
     public function show(Property $property)
     {
-        $property->load(['images', 'user', 'services', 'reservations.user']);
+        $property->load(['images', 'user', 'services', 'reservations.user', 'details']);
         return view('properties.show', compact('property'));
     }
 
     public function edit(Property $property)
     {
-        $services = Service::all();
-        $property->load('services');
-
-        return view('properties.edit', compact('property', 'services'));
+        $property->load(['services', 'details']);
+        return view('properties.edit', compact('property'));
     }
 
     public function update(PropertyUpdateRequest $request, Property $property)
@@ -136,18 +139,60 @@ class PropertyController extends Controller
 
             $property->services()->sync($request->services ?? []);
 
+            $this->handlePropertyDetails($property, $request);
+
             if ($request->hasFile('images')) {
-                $this->handleImageUpload($property, $request->file('images'));
+                $images = $request->file('images');
+
+                if (!is_array($images)) {
+                    $images = [$images];
+                }
+
+                foreach ($images as $image) {
+                    if (!$image->isValid()) {
+                        continue;
+                    }
+
+                    if (!$this->imageService->isValidImage($image)) {
+                        continue;
+                    }
+
+                    $imagePath = $this->imageService->handlePropertyImage($image, $property->id);
+
+                    $property->images()->create([
+                        'image_path' => $imagePath,
+                        'is_primary' => $property->images()->count() === 0
+                    ]);
+                }
             }
 
             \DB::commit();
 
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Propriété mise à jour avec succès',
+                    'redirect' => route('properties.index')
+                ]);
+            }
+
             return redirect()->route('properties.index')
                 ->with('success', 'Propriété mise à jour avec succès');
-
         } catch (\Exception $e) {
             \DB::rollBack();
-            return back()->with('error', 'Erreur lors de la mise à jour')->withInput();
+
+            \Log::error('Erreur mise à jour propriété: ' . $e->getMessage());
+
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Erreur lors de la mise à jour: ' . $e->getMessage()
+                ], 500);
+            }
+
+            return back()
+                ->with('error', 'Erreur lors de la mise à jour: ' . $e->getMessage())
+                ->withInput();
         }
     }
 
@@ -161,17 +206,59 @@ class PropertyController extends Controller
             }
 
             $property->services()->detach();
+            $property->details()->delete();
             $property->delete();
 
             \DB::commit();
 
             return redirect()->route('properties.index')
                 ->with('success', 'Propriété supprimée');
-
         } catch (\Exception $e) {
             \DB::rollBack();
             return back()->with('error', 'Erreur lors de la suppression');
         }
+    }
+    protected function handlePropertyDetails(Property $property, Request $request)
+    {
+        // Suppression des anciennes caractéristiques
+        $property->details()->delete();
+
+        if (!$request->filled('details')) {
+            return;
+        }
+
+        $details = [];
+
+        foreach ($request->details as $detail) {
+            if (
+                empty($detail['title']) &&
+                empty($detail['value']) &&
+                empty($detail['description'])
+            ) {
+                continue;
+            }
+
+            $details[] = [
+                'title' => $detail['title'] ?? '',
+                'value' => $detail['value'] ?? '',
+                'description' => $detail['description'] ?? null,
+                'user_id' => auth()->id(),
+            ];
+        }
+
+        if (!empty($details)) {
+            $property->details()->createMany($details);
+        }
+    }
+
+
+    protected function generateSKU(Property $property)
+    {
+        $prefix = strtoupper(substr($property->type ?? 'PROP', 0, 3));
+        $id = str_pad($property->id, 5, '0', STR_PAD_LEFT);
+        $random = strtoupper(Str::random(3));
+
+        return "{$prefix}.{$id}{$random}";
     }
 
     protected function generateUniqueSlug($title)
@@ -196,7 +283,7 @@ class PropertyController extends Controller
 
             foreach ($this->imageSizes as $size => $dim) {
                 $resized = Image::make($image)
-                    ->fit($dim[0], $dim[1], fn ($c) => $c->aspectRatio())
+                    ->fit($dim[0], $dim[1], fn($c) => $c->aspectRatio())
                     ->encode(null, 80);
 
                 Storage::disk('public')->put("$basePath/$size/$filename", $resized);
