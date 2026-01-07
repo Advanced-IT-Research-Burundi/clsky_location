@@ -33,7 +33,7 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $depense->titre }}</td>
-                                <td>{{ number_format($depense->montant, 2) }} €</td>
+                                <td>{{ number_format($depense->montant, 2) }} BIF</td>
                                 <td>
                                     <a href="{{ asset('storage/' . $depense->justificatif) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
                                         Voir Justificatif
