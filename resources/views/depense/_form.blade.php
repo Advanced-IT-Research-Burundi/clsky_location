@@ -84,7 +84,7 @@
               name="justificatif"
               class="form-control"
               accept="image/*,.pdf"
-              required="{{ isset($depense) ? '': 'required' }}"
+             {{ !isset($depense) ? 'required' : '' }}
           >
 
           @if(isset($depense) && $depense->justificatif)
@@ -105,8 +105,7 @@
           <textarea 
               name="description" 
               class="form-control"
-              rows="3">
-              {{ old('description', $depense->description ?? '') }}</textarea>
+              rows="3">{{ old('description', $depense->description ?? '') }}</textarea>
       </div>
 
       <!-- Boutons -->
