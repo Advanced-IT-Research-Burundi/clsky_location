@@ -5,7 +5,7 @@
     <div class="row mb-4">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h2 class="mb-0">Mes réservations</h2>
-            <a href="{{ route('client.reservations.create') }}" class="btn btn-success">
+            <a href="{{ route('client.reservations.index') }}" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Nouvelle réservation
             </a>
         </div>
@@ -28,28 +28,6 @@
                                 <option value="cancelled" {{ request('status') === 'cancelled' ? 'selected' : '' }}>Annulée</option>
                             </select>
                         </div>
-
-                        <!-- Propriété -->
-                        <div class="mb-3">
-                            <label class="form-label">Propriété</label>
-                            <select name="property_id" class="form-select">
-                                <option value="">Toutes</option>
-                                @foreach($properties as $property)
-                                    <option value="{{ $property->id }}"
-                                        {{ request('property_id') == $property->id ? 'selected' : '' }}>
-                                        {{ $property->titre }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <!-- Recherche -->
-                        <div class="mb-3">
-                            <label class="form-label">Recherche</label>
-                            <input type="text" name="search" class="form-control" placeholder="Nom ou propriété"
-                                   value="{{ request('search') }}">
-                        </div>
-
                         <button type="submit" class="btn btn-primary w-100">Appliquer</button>
                     </form>
                 </div>

@@ -50,6 +50,7 @@ Route::middleware(['auth','check.client'])->group(function () {
     Route::get('archived', [App\Http\Controllers\MessageController::class, 'archived'])->name('archived');
     Route::post('messages/{message}/archive', [App\Http\Controllers\MessageController::class, 'archive'])->name('messages.archive');
     Route::post('messages/{message}/unarchive', [App\Http\Controllers\MessageController::class, 'unarchive'])->name('messages.unarchive');
+    Route::get('/messages/attachment/{attachment}', [App\Http\Controllers\MessageController::class, 'downloadAttachment'])->name('messages.download-attachment');
 
     Route::resource('notifications', App\Http\Controllers\NotificationController::class);
     Route::resource('maintenances', App\Http\Controllers\MaintenanceController::class);
