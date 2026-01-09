@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\MessageAttachment;
+use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,21 +15,20 @@ class MessageController extends Controller
     {
         $messages = Message::where('receiver_id', auth()->id())
             ->orWhere('sender_id', auth()->id())
-            ->with(['sender', 'receiver', 'property'])
+            ->with(['sender', 'receiver'])
             ->latest()
             ->paginate(20);
 
         $unreadCount = Message::where('receiver_id', auth()->id())
             ->whereNull('read_at')
             ->count();
-
         return view('messages.index', compact('messages', 'unreadCount'));
     }
 
     public function create()
     {
         $users = User::where('id', '!=', auth()->id())->get();
-        return view('messages.create', compact('users'));
+        return view('messages.create', compact('users', ));
     }
 
     public function destroy(Message $message)

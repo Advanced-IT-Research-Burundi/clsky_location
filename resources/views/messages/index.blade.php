@@ -35,7 +35,6 @@
                                     <th>De</th>
                                     <th>À</th>
                                     <th>Sujet</th>
-                                    <th>Propriété</th>
                                     <th>Date</th>
                                     <th>Actions</th>
                                 </tr>
@@ -57,16 +56,6 @@
                                                class="text-decoration-none">
                                                 {{ $message->subject }}
                                             </a>
-                                        </td>
-                                        <td>
-                                            @if($message->property)
-                                                <a href="{{ route('properties.show', $message->property) }}"
-                                                   class="text-decoration-none">
-                                                    {{ $message->property->title }}
-                                                </a>
-                                            @else
-                                                -
-                                            @endif
                                         </td>
                                         <td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
                                         <td>

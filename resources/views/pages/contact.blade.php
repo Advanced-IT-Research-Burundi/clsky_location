@@ -121,7 +121,7 @@
                     <div class="col-md-6">
                         <div class="wow fadeInUp" data-wow-delay="0.5s">
                             <p class="mb-4">Le formulaire de contact est temporairement inactif. Vous pouvez télécharger un formulaire de contact fonctionnel en quelques minutes. <a href="https://htmlcodex.com/contact-form">Téléchargez-le ici</a>.</p>
-                            <form>
+                            <form action="" method="POST">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
