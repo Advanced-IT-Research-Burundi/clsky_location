@@ -149,8 +149,8 @@
             <div class="card-header">
                 <h5 class="card-title mb-0">Localisation</h5>
             </div>
-            <div class="card-body">
-                <div class="mb-3">
+            <div class="d-flex card-body row g-2">
+                <div class="col-md-3 mb-3">
                     <label for="address" class="form-label">Adresse</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address"
                         name="address" value="{{ old('address', $property->address ?? '') }}" required>
@@ -159,7 +159,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="city" class="form-label">Ville</label>
                     <input type="text" class="form-control @error('city') is-invalid @enderror" id="city"
                         name="city" value="{{ old('city', $property->city ?? '') }}" required>
@@ -168,7 +168,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="postal_code" class="form-label">Code postal</label>
                     <input type="text" class="form-control @error('postal_code') is-invalid @enderror"
                         id="postal_code" name="postal_code"
@@ -178,7 +178,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="country" class="form-label">Pays</label>
                     <input type="text" class="form-control @error('country') is-invalid @enderror" id="country"
                         name="country" value="{{ old('country', $property->country ?? 'Burundi') }}" required>
