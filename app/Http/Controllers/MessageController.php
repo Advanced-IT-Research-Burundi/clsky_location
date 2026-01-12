@@ -13,8 +13,11 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $messages = Message::where('receiver_id', auth()->id())
-            ->orWhere('sender_id', auth()->id())
+        $messages = Message::where(function ($q) {
+            $q->where('receiver_id', auth()->id())
+            ->orWhere('sender_id', auth()->id());
+        })
+            ->where('is_archived', false) // 
             ->with(['sender', 'receiver'])
             ->latest()
             ->paginate(20);
