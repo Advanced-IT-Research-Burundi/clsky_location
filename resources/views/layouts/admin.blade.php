@@ -442,13 +442,13 @@
                                     Rapports
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a class="dropdown-item {{ request()->routeIs('settings.index') ? 'active' : '' }}"
                                     href="{{ route('settings.index') }}">
                                     <i class="bi bi-gear"></i>
                                     Paramètres
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 </ul>
