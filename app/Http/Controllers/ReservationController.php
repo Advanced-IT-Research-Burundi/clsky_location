@@ -157,6 +157,6 @@ class ReservationController extends Controller
             'status' => $request->status
         ]);
 
-        return redirect()->back()->with('success', 'Statut de la réservation mis à jour.');
+        return redirect()->route('reservations.index')->with('success', 'Statut de la réservation mis à jour.');
     }
 }
