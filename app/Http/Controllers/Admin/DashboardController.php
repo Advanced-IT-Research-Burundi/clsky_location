@@ -108,7 +108,6 @@ class DashboardController extends Controller
                 ];
             });
 
-        // Préparer les labels et données
         $labels = $monthlyData->keys()->map(function($month) {
             return Carbon::createFromFormat('Y-m', $month)->format('M Y');
         });
