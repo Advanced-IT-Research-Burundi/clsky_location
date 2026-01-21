@@ -32,7 +32,7 @@
                     <div class="row g-4">
                         <div class="col-md-6">
                             <h6 class="text-muted">Montant</h6>
-                            <h3 class="mb-0">{{ number_format($payment->amount, 2) }} BIF</h3>
+                            <h3 class="mb-0">{{ number_format($payment->amount, 2) }} USD</h3>
                         </div>
                         <div class="col-md-6">
                             <h6 class="text-muted">Statut</h6>

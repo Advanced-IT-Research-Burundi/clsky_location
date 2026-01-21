@@ -23,7 +23,7 @@
     <div class="stats">
         <h2>Statistiques Générales</h2>
         <div class="stats-item">
-            <strong>Revenus totaux:</strong> {{ number_format($stats['total_revenue'], 2) }} BIF
+            <strong>Revenus totaux:</strong> {{ number_format($stats['total_revenue'], 2) }} USD
         </div>
         <div class="stats-item">
             <strong>Nombre de réservations:</strong> {{ $stats['total_reservations'] }}
@@ -58,7 +58,7 @@
                         {{ $reservation->check_in->format('d/m/Y') }} -
                         {{ $reservation->check_out->format('d/m/Y') }}
                     </td>
-                    <td>{{ number_format($reservation->total_price, 2) }} BIF</td>
+                    <td>{{ number_format($reservation->total_price, 2) }} USD</td>
                     <td>{{ $reservation->status }}</td>
                 </tr>
             @endforeach

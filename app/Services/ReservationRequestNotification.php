@@ -32,7 +32,7 @@ class ReservationRequestNotification extends Notification
             ->line('Dates : du ' . $this->reservation->check_in->format('d/m/Y') .
                   ' au ' . $this->reservation->check_out->format('d/m/Y'))
             ->line('Nombre d\'invités : ' . $this->reservation->guests)
-            ->line('Montant total : ' . number_format($this->reservation->total_price, 2) . ' BIF')
+            ->line('Montant total : ' . number_format($this->reservation->total_price, 2) . ' USD')
             ->action('Voir la réservation', route('reservations.show', $this->reservation))
             ->line('Merci d\'utiliser notre plateforme !');
     }

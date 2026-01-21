@@ -48,7 +48,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h6 class="text-muted mb-2">Revenus Totaux</h6>
-                            <h3 class="mb-0">{{ $tousTotalRevenue }} BIF</h3>
+                            <h3 class="mb-0">{{ $tousTotalRevenue }} USD</h3>
                         </div>
                         <div class="text-success bg-success bg-opacity-10 p-3 rounded-circle">
                             <i class="bi bi-currency-bif fs-1"></i>
@@ -179,7 +179,7 @@
                             </td>
                             <td style="min-width: 150px;">
                                 <div class="d-flex flex-column">
-                                    <span class="h5 mb-0">{{ number_format($totalRevenue, 2) }} BIF</span>
+                                    <span class="h5 mb-0">{{ number_format($totalRevenue, 2) }} USD</span>
                                     <small class="text-muted">
                                         {{ $property->reservations->count() }} réservation(s)
                                     </small>
@@ -190,7 +190,7 @@
                                     @forelse($latestPayments as $payment)
                                         <div class="badge bg-light text-dark text-start">
                                             <i class="bi bi-credit-card me-1"></i>
-                                            {{ number_format($payment->amount, 2) }} BIF
+                                            {{ number_format($payment->amount, 2) }} USD
                                             <small class="text-muted">
                                                 ({{ $payment->created_at->format('d/m/Y') }})
                                             </small>
@@ -262,7 +262,7 @@
                             <div class="card border-0 bg-primary bg-opacity-10">
                                 <div class="card-body">
                                     <h6 class="text-primary mb-2">Total des revenus</h6>
-                                    <h3 class="mb-0">{{ number_format($property->reservations->sum('total_paid'), 2) }} BIF</h3>
+                                    <h3 class="mb-0">{{ number_format($property->reservations->sum('total_paid'), 2) }} USD</h3>
                                 </div>
                             </div>
                         </div>
@@ -320,7 +320,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="fw-bold">{{ number_format($payment->amount, 2) }} BIF</span>
+                                            <span class="fw-bold">{{ number_format($payment->amount, 2) }} USD</span>
                                         </td>
                                         <td>
                                             <span class="badge {{ $payment->status === 'completed' ? 'bg-success' : 'bg-warning' }}">

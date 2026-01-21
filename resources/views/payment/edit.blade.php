@@ -39,7 +39,7 @@
                                        name="amount"
                                        value="{{ old('amount', $payment->amount) }}"
                                        required>
-                                <span class="input-group-text">BIF</span>
+                                <span class="input-group-text">USD</span>
                                 @error('amount')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -140,7 +140,7 @@
                         </dd>
 
                         <dt>Montant total</dt>
-                        <dd>{{ number_format($payment->reservation->total_price, 2) }} BIF</dd>
+                        <dd>{{ number_format($payment->reservation->total_price, 2) }} USD</dd>
                     </dl>
                 </div>
             </div>

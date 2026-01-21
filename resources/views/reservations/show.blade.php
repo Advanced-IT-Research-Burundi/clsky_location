@@ -75,7 +75,7 @@
                                 <h6 class="text-muted">Paiement</h6>
                                 <p class="mb-1">
                                     <i class="bi bi-cash text-primary me-2"></i>
-                                    Total : {{ number_format($reservation->total_price, 2) }} BIF
+                                    Total : {{ number_format($reservation->total_price, 2) }} USD
                                 </p>
                                 <p>
                                     <i class="bi bi-credit-card text-primary me-2"></i>
