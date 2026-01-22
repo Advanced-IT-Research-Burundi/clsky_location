@@ -14,7 +14,7 @@
                         <p>{{ $reservation->property->title }}</p>
                         <p>Du {{ $reservation->check_in->format('d/m/Y') }} au {{ $reservation->check_out->format('d/m/Y') }}</p>
                         <p>Nombre de nuits : {{ $reservation->nights }}</p>
-                        <p class="fw-bold">Montant total : {{ number_format($reservation->total_price, 2) }} BIF</p>
+                        <p class="fw-bold">Montant total : {{ number_format($reservation->total_price, 2) }} USD</p>
                     </div>
 
                     <form id="payment-form">

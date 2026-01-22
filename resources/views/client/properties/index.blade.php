@@ -47,9 +47,9 @@
                         <div class="col-md-6">
                             <select name="price_range" class="form-select">
                                 <option value="">Plage de Prix</option>
-                                <option value="0-100000" {{ request('price_range') === '0-100000' ? 'selected' : '' }}>0 - 100,000 BIF</option>
-                                <option value="100000-300000" {{ request('price_range') === '100000-300000' ? 'selected' : '' }}>100,000 - 300,000 BIF</option>
-                                <option value="300000-plus" {{ request('price_range') === '300000-plus' ? 'selected' : '' }}>300,000+ BIF</option>
+                                <option value="0-100000" {{ request('price_range') === '0-100000' ? 'selected' : '' }}>0 - 100,000 USD</option>
+                                <option value="100000-300000" {{ request('price_range') === '100000-300000' ? 'selected' : '' }}>100,000 - 300,000 USD</option>
+                                <option value="300000-plus" {{ request('price_range') === '300000-plus' ? 'selected' : '' }}>300,000+ USD</option>
                             </select>
                         </div>
                         <div class="col-12">
@@ -112,7 +112,7 @@
 
                         <!-- Détails de la propriété -->
                         <div class="p-4 pb-0">
-                            <h5 class="text-primary mb-3">{{ number_format($property->price, 0, ',', ' ') }} BIF</h5>
+                            <h5 class="text-primary mb-3">{{ number_format($property->price, 0, ',', ' ') }} USD</h5>
                             <a class="d-block h5 mb-2 text-truncate" href="{{ route('client.properties.show', $property->id) }}">
                                 {{ $property->title }}
                             </a>

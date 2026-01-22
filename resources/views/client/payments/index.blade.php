@@ -32,7 +32,7 @@
                 <div>
                     <h6 class="card-title text-uppercase fw-semibold mb-2">Total payé</h6>
                     <h3 class="fw-bold mb-0">
-                        {{ number_format($payments->where('status', 'completed')->sum('amount'), 2) }} BIF
+                        {{ number_format($payments->where('status', 'completed')->sum('amount'), 2) }} USD
                     </h3>
                 </div>
                 <div class="icon-circle bg-white text-primary">
@@ -49,7 +49,7 @@
                 <div>
                     <h6 class="card-title text-uppercase fw-semibold mb-2">En attente</h6>
                     <h3 class="fw-bold mb-0">
-                        {{ number_format($payments->where('status', 'pending')->sum('amount'), 2) }} BIF
+                        {{ number_format($payments->where('status', 'pending')->sum('amount'), 2) }} USD
                     </h3>
                 </div>
                 <div class="icon-circle bg-dark text-warning">
@@ -130,7 +130,7 @@
                                         <i class="bi bi-money"></i> Cash Transfer
                                     @endif
                                 </td>
-                                <td>{{ number_format($payment->amount, 2) }} BIF</td>
+                                <td>{{ number_format($payment->amount, 2) }} USD</td>
                                 <td>
                                     <span class="badge bg-{{ $payment->status_color }}">
                                         {{ $payment->status_text }}

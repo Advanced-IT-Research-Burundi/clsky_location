@@ -247,30 +247,6 @@
         </div>
     </div>
 
-    {{-- Services --}}
-    {{-- <div class="col-12">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title mb-0">Services disponibles</h5>
-            </div>
-            <div class="card-body">
-                <div class="row g-2">
-                    @foreach ($services as $service)
-                        <div class="col-md-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="services[]"
-                                    id="service_{{ $service->id }}" value="{{ $service->id }}"
-                                    @checked(in_array($service->id, old('services', isset($property) ? $property->services->pluck('id')->toArray() : [])))>
-                                <label class="form-check-label" for="service_{{ $service->id }}">
-                                    {{ $service->name }}
-                                </label>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     {{-- Gestion des images avec Dropzone --}}
     <div class="col-12">
@@ -283,7 +259,7 @@
                 </h5>
             </div>
             <div class="card-body">
-                {{-- Images existantes (mode édition) --}}
+            
                 @if (isset($property) && $property->images->count() > 0)
                     <div class="mb-4">
                         <h6 class="mb-3">Images existantes</h6>
@@ -324,7 +300,6 @@
                     </div>
                 @endif
 
-                {{-- Zone de Dropzone --}}
                 <div>
                     <h6 class="mb-3">
                         {{ isset($property) ? 'Ajouter de nouvelles images' : 'Ajouter des images' }}
@@ -354,7 +329,7 @@
                 return;
             }
 
-            fetch(`/admin/properties/images/${imageId}`, {
+            fetch(`/properties/images/${imageId}`, {
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,

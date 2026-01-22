@@ -297,13 +297,22 @@ class PropertyController extends Controller
             ]);
         }
     }
-
-    protected function deletePropertyImage(PropertyImage $image)
+    public function deleteImage(PropertyImage $image)
     {
-        $basePath = 'properties/' . $image->property_id;
-        foreach (['thumb', 'medium', 'large', 'original'] as $size) {
-            Storage::disk('public')->delete("$basePath/$size/" . basename($image->image_path));
+        try {
+            $image = PropertyImage::findOrFail($image->id);
+            $image->delete();
+            // $this->deletePropertyImage($image);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Image supprimée avec succès'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la suppression'.$e->getMessage()
+            ], 500);
         }
-        $image->delete();
     }
 }

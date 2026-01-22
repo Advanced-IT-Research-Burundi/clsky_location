@@ -11,19 +11,19 @@ use Illuminate\View\View;
 
 class PropertyImageController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request):
     {
         $propertyImages = PropertyImage::all();
 
         return view('propertyImage.index', compact('propertyImages'));
     }
 
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
         return view('propertyImage.create');
     }
 
-    public function store(PropertyImageControllerStoreRequest $request): Response
+    public function store(PropertyImageControllerStoreRequest $request)
     {
         $propertyImage = PropertyImage::create($request->validated());
 
@@ -32,17 +32,17 @@ class PropertyImageController extends Controller
         return redirect()->route('propertyImages.index');
     }
 
-    public function show(Request $request, PropertyImage $propertyImage): Response
+    public function show(Request $request, PropertyImage $propertyImage)
     {
         return view('propertyImage.show', compact('propertyImage'));
     }
 
-    public function edit(Request $request, PropertyImage $propertyImage): Response
+    public function edit(Request $request, PropertyImage $propertyImage)
     {
         return view('propertyImage.edit', compact('propertyImage'));
     }
 
-    public function update(PropertyImageControllerUpdateRequest $request, PropertyImage $propertyImage): Response
+    public function update(PropertyImageControllerUpdateRequest $request, PropertyImage $propertyImage)
     {
         $propertyImage->update($request->validated());
 
@@ -51,7 +51,7 @@ class PropertyImageController extends Controller
         return redirect()->route('propertyImages.index');
     }
 
-    public function destroy(Request $request, PropertyImage $propertyImage): Response
+    public function destroy(Request $request, PropertyImage $propertyImage)
     {
         $propertyImage->delete();
 

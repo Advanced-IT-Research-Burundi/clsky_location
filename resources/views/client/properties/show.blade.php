@@ -46,7 +46,7 @@
             <div class="col-lg-4">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h3 class="mb-4">{{ number_format($property->price, 0, ',', ' ') }} BIF <small
+                        <h3 class="mb-4">{{ number_format($property->price, 0, ',', ' ') }} USD <small
                                 class="text-muted">/ nuit</small></h3>
 
                         <form action="{{ route('client.properties.reserve', $property) }}" method="POST"
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const total = nights * pricePerNight;
 
             totalNightsEl.textContent = nights + ' nuit(s)';
-            totalPriceEl.textContent = new Intl.NumberFormat('fr-FR').format(total) + ' BIF';
+            totalPriceEl.textContent = new Intl.NumberFormat('fr-FR').format(total) + ' USD';
         } else {
             totalNightsEl.textContent = '--';
             totalPriceEl.textContent = '--';

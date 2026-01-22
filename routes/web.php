@@ -73,8 +73,10 @@ Route::middleware(['auth','check.client'])->group(function () {
     // Routes additionnelles pour la gestion des images
     Route::post('properties/{property}/images', [PropertyController::class, 'uploadImages'])
         ->name('properties.upload-images');
+
     Route::delete('properties/images/{image}', [PropertyController::class, 'deleteImage'])
         ->name('properties.delete-image');
+        
     Route::post('properties/images/{image}/set-primary', [PropertyController::class, 'setPrimaryImage'])
         ->name('properties.set-primary-image');
          // Nouvelle route pour l'ordre des images

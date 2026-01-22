@@ -34,7 +34,7 @@
                         <div class="col-md-6 text-md-end">
                             <p class="mb-1">
                                 <strong class="text-muted">Montant :</strong><br>
-                                <span class="h3">{{ number_format($payment->amount, 2) }} BIF</span>
+                                <span class="h3">{{ number_format($payment->amount, 2) }} USD</span>
                             </p>
                             <p class="mb-0">
                                 <strong class="text-muted">Statut :</strong><br>
