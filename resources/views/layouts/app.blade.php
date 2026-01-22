@@ -33,7 +33,6 @@
         <!-- Navbar End -->
         <!-- Page Content Start -->
             @yield('content')
-        <!-- Page Content End -->
         <!-- Footer Start -->
             @include('components.footer')
         <!-- Footer End -->

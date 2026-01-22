@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Content start -->
-<div>
+    <!-- Content start -->
+    <div>
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -18,7 +19,7 @@
             <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
                 <div class="col-md-6 p-5 mt-lg-5">
                     <h1 class="display-5 animated fadeIn mb-4">Testimonial</h1>
-                        <nav aria-label="breadcrumb animated fadeIn">
+                    <nav aria-label="breadcrumb animated fadeIn">
                         <ol class="breadcrumb text-uppercase">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Pages</a></li>
@@ -75,14 +76,17 @@
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Our Clients Say!</h1>
-                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod
+                        sit. Ipsum diam justo sed rebum vero dolor duo.</p>
                 </div>
                 <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
                     <div class="testimonial-item bg-light rounded p-3">
                         <div class="bg-white border rounded p-4">
-                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet
+                                diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 45px; height: 45px;">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg"
+                                    style="width: 45px; height: 45px;">
                                 <div class="ps-3">
                                     <h6 class="fw-bold mb-1">Client Name</h6>
                                     <small>Profession</small>
@@ -92,9 +96,11 @@
                     </div>
                     <div class="testimonial-item bg-light rounded p-3">
                         <div class="bg-white border rounded p-4">
-                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet
+                                diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg" style="width: 45px; height: 45px;">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg"
+                                    style="width: 45px; height: 45px;">
                                 <div class="ps-3">
                                     <h6 class="fw-bold mb-1">Client Name</h6>
                                     <small>Profession</small>
@@ -104,9 +110,11 @@
                     </div>
                     <div class="testimonial-item bg-light rounded p-3">
                         <div class="bg-white border rounded p-4">
-                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
+                            <p>Tempor stet labore dolor clita stet diam amet ipsum dolor duo ipsum rebum stet dolor amet
+                                diam stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                             <div class="d-flex align-items-center">
-                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg" style="width: 45px; height: 45px;">
+                                <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg"
+                                    style="width: 45px; height: 45px;">
                                 <div class="ps-3">
                                     <h6 class="fw-bold mb-1">Client Name</h6>
                                     <small>Profession</small>
@@ -118,6 +126,14 @@
             </div>
         </div>
         <!-- Testimonial End -->
-
-</div>
+        <!-- Location Map Start -->
+        <div class="container-fluid p-0">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0000000000005!2d29.21!3d-3.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19c08f0d00000001%3A0xf5c49ae7353a363c!2sCL%20SKY%20COMPANY%2C%20Rohero%201%2C%20Bujumbura%2C%20Burundi!5e0!3m2!1sfr!2sbi!4v1700000000000!5m2!1sfr!2sbi"
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <!-- Location Map End -->
+    </div>
 @endsection

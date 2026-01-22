@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Content start -->
-<div>
+    <!-- Content start -->
+    <div>
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -18,7 +19,7 @@
             <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
                 <div class="col-md-6 p-5 mt-lg-5">
                     <h1 class="display-5 animated fadeIn mb-4">404 Error</h1>
-                        <nav aria-label="breadcrumb animated fadeIn">
+                    <nav aria-label="breadcrumb animated fadeIn">
                         <ol class="breadcrumb text-uppercase">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Pages</a></li>
@@ -78,14 +79,22 @@
                         <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
                         <h1 class="display-1">404</h1>
                         <h1 class="mb-4">Page Not Found</h1>
-                        <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
+                        <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go
+                            to our home page or try to use a search?</p>
                         <a class="btn btn-primary py-3 px-5" href="">Go Back To Home</a>
                     </div>
                 </div>
             </div>
         </div>
         <!-- 404 End -->
-</div>
-<!-- Content end -->
+    </div>
+    <!-- Location Map Start -->
+    <div class="container-fluid p-0">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0000000000005!2d29.21!3d-3.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19c08f0d00000001%3A0xf5c49ae7353a363c!2sCL%20SKY%20COMPANY%2C%20Rohero%201%2C%20Bujumbura%2C%20Burundi!5e0!3m2!1sfr!2sbi!4v1700000000000!5m2!1sfr!2sbi"
+            width="100%" height="400"style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <!-- Location Map End -->
+    <!-- Content end -->
 @endsection
-
