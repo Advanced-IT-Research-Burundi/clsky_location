@@ -244,9 +244,9 @@
                                     <i class="bi bi-trash"></i> Supprimer
                                 </button>
                             </form>
-                            <button onclick="window.print()" class="btn btn-info">
+                            {{-- <button onclick="window.print()" class="btn btn-info">
                                 <i class="bi bi-printer"></i> Imprimer
-                            </button>
+                            </button> --}}
                         </div>
                     </div>
                 </div>

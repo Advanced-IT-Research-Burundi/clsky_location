@@ -71,85 +71,103 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.3/dist/min/dropzone.min.js"></script>
 <script>
-    Dropzone.autoDiscover = false;
-    
-    let uploadedFiles = [];
-    
-    const dropzone = new Dropzone("#imageDropzone", {
-        url: "#",
-        autoProcessQueue: false,
-        uploadMultiple: true,
-        parallelUploads: 20,
-        maxFiles: 20,
-        maxFilesize: 5,
-        acceptedFiles: 'image/*',
-        addRemoveLinks: true,
-        dictDefaultMessage: "Glissez-déposez vos images ici ou cliquez pour sélectionner",
-        dictRemoveFile: "Supprimer",
-        dictCancelUpload: "Annuler",
-        dictMaxFilesExceeded: "Vous ne pouvez pas ajouter plus de 20 images",
-        thumbnailWidth: 120,
-        thumbnailHeight: 120,
-        
-        init: function() {
-            const dz = this;
-            
-            this.on("addedfile", function(file) {
-                console.log("Fichier ajouté:", file.name);
-                uploadedFiles.push(file);
-            });
-            
-            this.on("removedfile", function(file) {
-                console.log("Fichier supprimé:", file.name);
-                uploadedFiles = uploadedFiles.filter(f => f !== file);
-            });
-            
-            document.getElementById('property-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const form = this;
-                const formData = new FormData(form);
-                
-                // Ajouter les nouveaux fichiers
-                uploadedFiles.forEach(function(file) {
-                    formData.append('images[]', file);
-                });
-                
-                const submitBtn = document.getElementById('submit-btn');
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Mise à jour en cours...';
-                
-                // Envoyer avec POST (Laravel traitera le _method=PUT)
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (response.redirected) {
-                        window.location.href = response.url;
-                        return;
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data && data.redirect) {
-                        window.location.href = data.redirect;
-                    } else if (data && data.success) {
-                        window.location.href = "{{ route('properties.index') }}";
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    alert('Erreur lors de la mise à jour de la propriété: ' + error.message);
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="bi bi-check-circle"></i> Mettre à jour';
-                });
+    const existingImages = @json(
+        $property->images->map(fn($img) => [
+            'id' => $img->id,
+            'name' => basename($img->image_path),
+            'url' => asset('storage/'.$img->image_path)
+        ])
+    );
+</script>
+
+<script>
+Dropzone.autoDiscover = false;
+
+const uploadedFiles = [];
+const removedExistingImages = [];
+
+const dropzone = new Dropzone("#imageDropzone", {
+    url: "#",
+    autoProcessQueue: false,
+    uploadMultiple: true,
+    parallelUploads: 20,
+    maxFiles: 20,
+    maxFilesize: 5,
+    acceptedFiles: "image/*",
+    addRemoveLinks: true,
+    dictDefaultMessage: "Glissez-déposez vos images ici ou cliquez",
+    thumbnailWidth: 120,
+    thumbnailHeight: 120,
+
+    init: function () {
+        const dz = this;
+
+        // 🔹 Charger les images existantes
+        if (typeof existingImages !== "undefined") {
+            existingImages.forEach(image => {
+                const mockFile = {
+                    name: image.name,
+                    size: 123456,
+                    serverId: image.id
+                };
+
+                dz.emit("addedfile", mockFile);
+                dz.emit("thumbnail", mockFile, image.url);
+                dz.emit("complete", mockFile);
+
+                mockFile.previewElement.classList.add("dz-existing");
             });
         }
-    });
+
+        // 🔹 Nouvelle image
+        dz.on("addedfile", file => {
+            if (!file.serverId) {
+                uploadedFiles.push(file);
+            }
+        });
+
+        // 🔹 Suppression image
+        dz.on("removedfile", file => {
+            if (file.serverId) {
+                removedExistingImages.push(file.serverId);
+            }
+        });
+
+        // 🔹 Soumission formulaire
+        document.getElementById("property-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            uploadedFiles.forEach(file => {
+                formData.append("images[]", file);
+            });
+
+            removedExistingImages.forEach(id => {
+                formData.append("removed_images[]", id);
+            });
+
+            fetch(this.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
+                    "Accept": "application/json"
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            })
+            .catch(err => {
+                alert("Erreur lors de la mise à jour");
+                console.error(err);
+            });
+        });
+    }
+});
 </script>
+
 @endpush
