@@ -308,8 +308,8 @@
                                                     <i class="bi bi-person"></i>
                                                 </div>
                                                 <div>
-                                                    <div class="fw-bold">{{ $reservation->user->name }}</div>
-                                                    <small class="text-muted">{{ $reservation->user->email }}</small>
+                                                    <div class="fw-bold">{{ $reservation->user?->name ?? 'Client inconnu'}}</div>
+                                                    <small class="text-muted">{{ $reservation->user?->email ?? '—'  }}</small>
                                                 </div>
                                             </div>
                                         </td>
