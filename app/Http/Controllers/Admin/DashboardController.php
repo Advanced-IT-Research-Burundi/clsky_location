@@ -30,7 +30,7 @@ class DashboardController extends Controller
         }
 
         $properties = $query->get()
-            ->sortByDesc(function($property) {
+            ->sortByDesc(function ($property) {
                 return $property->reservations->sum('total_paid');
             });
 
@@ -56,7 +56,7 @@ class DashboardController extends Controller
 
     private function getStartDate($period)
     {
-        return match($period) {
+        return match ($period) {
             'today' => Carbon::today(),
             'this_week' => Carbon::now()->startOfWeek(),
             'this_month' => Carbon::now()->startOfMonth(),
@@ -70,7 +70,7 @@ class DashboardController extends Controller
     private function calculateStats($properties, $startDate)
     {
         $reservations = $properties->flatMap->reservations
-            ->when($startDate, function($reservations) use ($startDate) {
+            ->when($startDate, function ($reservations) use ($startDate) {
                 return $reservations->where('created_at', '>=', $startDate);
             });
 
@@ -91,16 +91,16 @@ class DashboardController extends Controller
     private function getChartData($startDate)
     {
         $query = Reservation::with('payments')
-            ->when($startDate, function($q) use ($startDate) {
+            ->when($startDate, function ($q) use ($startDate) {
                 return $q->where('created_at', '>=', $startDate);
             });
 
         // Données mensuelles
         $monthlyData = $query->get()
-            ->groupBy(function($reservation) {
+            ->groupBy(function ($reservation) {
                 return $reservation->created_at->format('Y-m');
             })
-            ->map(function($reservations) {
+            ->map(function ($reservations) {
                 return [
                     'revenue' => $reservations->sum('total_paid'),
                     'count' => $reservations->count(),
@@ -108,7 +108,7 @@ class DashboardController extends Controller
                 ];
             });
 
-        $labels = $monthlyData->keys()->map(function($month) {
+        $labels = $monthlyData->keys()->map(function ($month) {
             return Carbon::createFromFormat('Y-m', $month)->format('M Y');
         });
 
@@ -161,11 +161,11 @@ class DashboardController extends Controller
     private function getTopProperties($properties, $limit)
     {
         return $properties
-            ->sortByDesc(function($property) {
+            ->sortByDesc(function ($property) {
                 return $property->reservations->sum('total_paid');
             })
             ->take($limit)
-            ->map(function($property) {
+            ->map(function ($property) {
                 return [
                     'id' => $property->id,
                     'title' => $property->title,
@@ -181,17 +181,18 @@ class DashboardController extends Controller
         return $reservations
             ->sortByDesc('created_at')
             ->take($limit)
-            ->map(function($reservation) {
+            ->map(function ($reservation) {
                 return [
                     'id' => $reservation->id,
-                    'property_title' => $reservation->property->title,
-                    'guest_name' => $reservation->user->name,
+                    'property_title' => $reservation->property?->title ?? 'Bien inconnu',
+                    'guest_name' => $reservation->user?->name ?? 'Client inconnu',
                     'amount' => $reservation->total_paid,
                     'status' => $reservation->status,
-                    'created_at' => $reservation->created_at->format('d/m/Y')
+                    'created_at' => optional($reservation->created_at)->format('d/m/Y')
                 ];
             });
     }
+
 
     public function export(Request $request)
     {
@@ -202,12 +203,12 @@ class DashboardController extends Controller
             'reservations.payments',
             'reservations.user'
         ])
-        ->when($startDate, function($query) use ($startDate) {
-            $query->whereHas('reservations', function($q) use ($startDate) {
-                $q->where('created_at', '>=', $startDate);
-            });
-        })
-        ->get();
+            ->when($startDate, function ($query) use ($startDate) {
+                $query->whereHas('reservations', function ($q) use ($startDate) {
+                    $q->where('created_at', '>=', $startDate);
+                });
+            })
+            ->get();
 
         // Générer le rapport Excel ou CSV
         return Excel::download(
