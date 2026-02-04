@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User; 
 
-class ProfileController extends Controller
+class ProfilController extends Controller
 {
     // Afficher la page profil
     public function edit()
@@ -38,7 +39,7 @@ class ProfileController extends Controller
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
             }
-            
+
             $imagePath = $request->file('avatar')->store('profiles', 'public');
             $user->avatar = $imagePath;
         }

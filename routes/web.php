@@ -2,18 +2,13 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // Page routes
 Route::controller(PageController::class)->group(function () {
@@ -61,9 +56,9 @@ Route::middleware(['auth','check.client'])->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfilController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfilController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfilController::class, 'destroy'])->name('profile.destroy');
     // Routes pour la gestion des images
     Route::delete('/property-images/{image}', [PropertyController::class, 'deleteImage'])
     ->name('properties.delete-image');

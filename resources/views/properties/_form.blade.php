@@ -259,7 +259,7 @@
                 </h5>
             </div>
             <div class="card-body">
-            
+
                 @if (isset($property) && $property->images->count() > 0)
                     <div class="mb-4">
                         <h6 class="mb-3">Images existantes</h6>
@@ -267,8 +267,9 @@
                             @foreach ($property->images as $image)
                                 <div class="col-md-2" id="image-{{ $image->id }}">
                                     <div class="position-relative">
-                                        <img src="{{ Storage::url($image->image_path) }}" class="img-thumbnail w-100"
-                                            style="height: 150px; object-fit: cover;" alt="Image">
+                                        <img src="{{ asset(str_replace('original', 'thumb', $image->image_path)) }}"
+                                            class="img-thumbnail w-100" style="height: 150px; object-fit: cover;"
+                                            alt="Image">
 
                                         <div class="position-absolute top-0 end-0 p-1">
                                             <button type="button" class="btn btn-danger btn-sm"
@@ -295,6 +296,7 @@
                                     </div>
                                 </div>
                             @endforeach
+
                         </div>
                         <hr class="my-4">
                     </div>

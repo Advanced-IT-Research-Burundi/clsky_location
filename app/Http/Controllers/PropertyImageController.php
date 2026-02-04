@@ -11,7 +11,7 @@ use Illuminate\View\View;
 
 class PropertyImageController extends Controller
 {
-    public function index(Request $request):
+    public function index(Request $request)
     {
         $propertyImages = PropertyImage::all();
 

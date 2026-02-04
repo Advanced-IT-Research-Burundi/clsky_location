@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use App\Models\PropertyImage;
-use App\Models\Service;
 use App\Http\Requests\PropertyStoreRequest;
 use App\Http\Requests\PropertyUpdateRequest;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Exception;
 
 class PropertyController extends Controller
@@ -33,7 +32,7 @@ class PropertyController extends Controller
 
         return view('properties.index', compact('properties'));
     }
-
+    
     public function create()
     {
         return view('properties.create', [
@@ -121,12 +120,12 @@ class PropertyController extends Controller
                 $images = PropertyImage::whereIn('id', $request->removed_images)->get();
 
                 foreach ($images as $img) {
-                    Storage::disk('public')->delete($img->image_path);
+                    $this->imageService->deletePropertyImages($img->image_path, $property->id);
                     $img->delete();
                 }
             }
 
-            //AJOUT DES NOUVELLES IMAGES 
+            // AJOUT DES NOUVELLES IMAGES 
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     if (!$this->imageService->isValidImage($image)) continue;
@@ -169,7 +168,7 @@ class PropertyController extends Controller
 
         try {
             foreach ($property->images as $image) {
-                Storage::disk('public')->delete($image->image_path);
+                $this->imageService->deletePropertyImages($image->image_path, $property->id);
                 $image->delete();
             }
 
@@ -193,7 +192,7 @@ class PropertyController extends Controller
     public function deleteImage(PropertyImage $image)
     {
         try {
-            Storage::disk('public')->delete($image->image_path);
+            $this->imageService->deletePropertyImages($image->image_path, $image->property_id);
             $image->delete();
 
             return response()->json([
@@ -206,7 +205,6 @@ class PropertyController extends Controller
             ], 500);
         }
     }
-
 
     protected function handlePropertyDetails(Property $property, Request $request)
     {

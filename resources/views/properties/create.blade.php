@@ -73,18 +73,16 @@
 <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.3/dist/min/dropzone.min.js"></script>
 <script>
     Dropzone.autoDiscover = false;
-    
-    // Tableau pour stocker les fichiers
+
     let uploadedFiles = [];
-    
-    // Configuration Dropzone
+
     const dropzone = new Dropzone("#imageDropzone", {
-        url: "#", // URL factice, on soumettra avec le formulaire
+        url: "#",
         autoProcessQueue: false,
         uploadMultiple: true,
         parallelUploads: 20,
         maxFiles: 20,
-        maxFilesize: 5, // MB
+        maxFilesize: 5,
         acceptedFiles: 'image/*',
         addRemoveLinks: true,
         dictDefaultMessage: "Glissez-déposez vos images ici ou cliquez pour sélectionner",
@@ -93,74 +91,70 @@
         dictMaxFilesExceeded: "Vous ne pouvez pas ajouter plus de 20 images",
         thumbnailWidth: 120,
         thumbnailHeight: 120,
-        
-        init: function() {
-            const dz = this;
-            
-            // Quand on ajoute un fichier
-            this.on("addedfile", function(file) {
-                console.log("Fichier ajouté:", file.name);
+
+        init: function () {
+
+            this.on("addedfile", function (file) {
                 uploadedFiles.push(file);
             });
-            
-            // Quand on supprime un fichier
-            this.on("removedfile", function(file) {
-                console.log("Fichier supprimé:", file.name);
+
+            this.on("removedfile", function (file) {
                 uploadedFiles = uploadedFiles.filter(f => f !== file);
             });
-            
-            // Gestion de la soumission du formulaire
-            document.getElementById('property-form').addEventListener('submit', function(e) {
+
+            document.getElementById('property-form').addEventListener('submit', function (e) {
+
                 e.preventDefault();
-                
+
                 const form = this;
                 const formData = new FormData(form);
-                
-                // Ajouter les fichiers de Dropzone au FormData
-                uploadedFiles.forEach(function(file) {
+
+                // Ajouter images dropzone
+                uploadedFiles.forEach(file => {
                     formData.append('images[]', file);
                 });
-                
-                // Désactiver le bouton de soumission
+
                 const submitBtn = document.getElementById('submit-btn');
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Création en cours...';
-                
-                // Envoyer le formulaire avec fetch
+                submitBtn.innerHTML =
+                    '<span class="spinner-border spinner-border-sm me-2"></span>Création en cours...';
+
                 fetch(form.action, {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json'
                     }
                 })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json().catch(() => {
-                            // Si la réponse n'est pas JSON, c'est probablement une redirection
-                            window.location.href = "{{ route('properties.index') }}";
-                        });
-                    } else {
-                        return response.json().then(data => {
-                            throw new Error(data.message || 'Erreur lors de la création');
-                        });
+                .then(async response => {
+
+                    // Si Laravel retourne validation error
+                    if (response.status === 422) {
+                        const data = await response.json();
+                        throw new Error(Object.values(data.errors).flat().join("\n"));
                     }
-                })
-                .then(data => {
-                    if (data && data.redirect) {
-                        window.location.href = data.redirect;
-                    } else {
-                        window.location.href = "{{ route('properties.index') }}";
+
+                    // Si succès → redirection normale Laravel
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                        return;
                     }
+
+                    window.location.href = "{{ route('properties.index') }}";
                 })
                 .catch(error => {
-                    console.error('Erreur:', error);
-                    alert('Erreur lors de la création de la propriété: ' + error.message);
+
+                    alert(error.message);
+
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="bi bi-save"></i> Créer la propriété';
+                    submitBtn.innerHTML =
+                        '<i class="bi bi-save"></i> Créer la propriété';
                 });
+
             });
         }
     });
 </script>
+
 @endpush

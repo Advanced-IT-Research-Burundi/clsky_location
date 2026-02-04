@@ -1,31 +1,32 @@
 @extends('layouts.admin')
 
-@section('title', 'Modifier la propriété')
+@section('title', 'Nouvelle Propriété')
 
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3">Modifier la propriété</h1>
+        <h1 class="h3">Ajouter une propriété</h1>
         <a href="{{ route('properties.index') }}" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left"></i> Retour
         </a>
     </div>
 
-    <form action="{{ route('properties.update', $property->id) }}" method="POST" enctype="multipart/form-data" id="property-form">
+    <form action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data" id="property-form">
         @csrf
-        {{-- Important: Utiliser un champ caché pour simuler PUT au lieu de @method('PUT') --}}
-        <input type="hidden" name="_method" value="PUT">
-
-        @include('properties._form', ['property' => $property])
+        
+        {{-- Inclure le formulaire partagé --}}
+        @include('properties._form')
 
         <div class="row mt-4">
-            <div class="col-12 d-flex justify-content-end gap-2">
-                <a href="{{ route('properties.index') }}" class="btn btn-secondary">
-                    <i class="bi bi-x-circle"></i> Annuler
-                </a>
-                <button type="submit" class="btn btn-success" id="submit-btn">
-                    <i class="bi bi-check-circle"></i> Mettre à jour
-                </button>
+            <div class="col-12">
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{{ route('properties.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Annuler
+                    </a>
+                    <button type="submit" class="btn btn-primary" id="submit-btn">
+                        <i class="bi bi-save"></i> Créer la propriété
+                    </button>
+                </div>
             </div>
         </div>
     </form>
@@ -36,7 +37,7 @@
 <link href="https://cdn.jsdelivr.net/npm/dropzone@5.9.3/dist/min/dropzone.min.css" rel="stylesheet">
 <style>
     .dropzone {
-        border: 2px dashed #198754;
+        border: 2px dashed #0d6efd;
         border-radius: 8px;
         background: #f8f9fa;
         min-height: 200px;
@@ -45,7 +46,7 @@
     }
     .dropzone:hover {
         background: #e9ecef;
-        border-color: #157347;
+        border-color: #0b5ed7;
     }
     .dropzone .dz-message {
         text-align: center;
@@ -70,21 +71,11 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.3/dist/min/dropzone.min.js"></script>
-<script>
-    const existingImages = @json(
-        $property->images->map(fn($img) => [
-            'id' => $img->id,
-            'name' => basename($img->image_path),
-            'url' => asset('storage/'.$img->image_path)
-        ])
-    );
-</script>
 
 <script>
 Dropzone.autoDiscover = false;
 
-const uploadedFiles = [];
-const removedExistingImages = [];
+let uploadedFiles = [];
 
 const dropzone = new Dropzone("#imageDropzone", {
     url: "#",
@@ -93,81 +84,74 @@ const dropzone = new Dropzone("#imageDropzone", {
     parallelUploads: 20,
     maxFiles: 20,
     maxFilesize: 5,
-    acceptedFiles: "image/*",
+    acceptedFiles: 'image/*',
     addRemoveLinks: true,
-    dictDefaultMessage: "Glissez-déposez vos images ici ou cliquez",
+    dictDefaultMessage: "Glissez-déposez vos images ici ou cliquez pour sélectionner",
+    dictRemoveFile: "Supprimer",
+    dictCancelUpload: "Annuler",
+    dictMaxFilesExceeded: "Vous ne pouvez pas ajouter plus de 20 images",
     thumbnailWidth: 120,
     thumbnailHeight: 120,
 
     init: function () {
-        const dz = this;
 
-        // 🔹 Charger les images existantes
-        if (typeof existingImages !== "undefined") {
-            existingImages.forEach(image => {
-                const mockFile = {
-                    name: image.name,
-                    size: 123456,
-                    serverId: image.id
-                };
-
-                dz.emit("addedfile", mockFile);
-                dz.emit("thumbnail", mockFile, image.url);
-                dz.emit("complete", mockFile);
-
-                mockFile.previewElement.classList.add("dz-existing");
-            });
-        }
-
-        // 🔹 Nouvelle image
-        dz.on("addedfile", file => {
-            if (!file.serverId) {
-                uploadedFiles.push(file);
-            }
+        this.on("addedfile", function(file) {
+            uploadedFiles.push(file);
         });
 
-        // 🔹 Suppression image
-        dz.on("removedfile", file => {
-            if (file.serverId) {
-                removedExistingImages.push(file.serverId);
-            }
+        this.on("removedfile", function(file) {
+            uploadedFiles = uploadedFiles.filter(f => f !== file);
         });
 
-        // 🔹 Soumission formulaire
-        document.getElementById("property-form").addEventListener("submit", function (e) {
+        document.getElementById('property-form').addEventListener('submit', function(e) {
+
             e.preventDefault();
 
-            const formData = new FormData(this);
+            const form = this;
+            const formData = new FormData(form);
 
             uploadedFiles.forEach(file => {
-                formData.append("images[]", file);
+                formData.append('images[]', file);
             });
 
-            removedExistingImages.forEach(id => {
-                formData.append("removed_images[]", id);
-            });
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML =
+                '<span class="spinner-border spinner-border-sm me-2"></span>Création en cours...';
 
-            fetch(this.action, {
-                method: "POST",
+            fetch(form.action, {
+                method: 'POST',
                 body: formData,
                 headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-                    "Accept": "application/json"
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept': 'application/json'
                 }
             })
-            .then(res => res.json())
-            .then(data => {
-                if (data.redirect) {
-                    window.location.href = data.redirect;
+            .then(async response => {
+
+                if (response.status === 422) {
+                    const data = await response.json();
+                    throw new Error(Object.values(data.errors).flat().join("\n"));
                 }
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+
+                window.location.href = "{{ route('properties.index') }}";
             })
-            .catch(err => {
-                alert("Erreur lors de la mise à jour");
-                console.error(err);
+            .catch(error => {
+
+                alert(error.message);
+
+                submitBtn.disabled = false;
+                submitBtn.innerHTML =
+                    '<i class="bi bi-save"></i> Créer la propriété';
             });
+
         });
     }
 });
 </script>
-
 @endpush
