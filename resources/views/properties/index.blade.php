@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
+
     <!-- En-tête -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 text-gray-800">Gestion des Propriétés</h1>
@@ -16,6 +17,7 @@
     <div class="card mb-4">
         <div class="card-body">
             <form action="{{ route('properties.index') }}" method="GET" class="row g-3">
+
                 <div class="col-md-3">
                     <input type="text"
                            name="search"
@@ -63,19 +65,20 @@
                         <i class="bi bi-search"></i>
                     </button>
                 </div>
+
             </form>
         </div>
     </div>
 
-    <!-- Liste des propriétés -->
+    <!-- Liste -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
         @forelse($properties as $property)
         <div class="col">
             <div class="card h-100">
 
                 <!-- Image -->
                 <div class="position-relative">
-
                     @php
                         $primaryImage = $property->images->where('is_primary', true)->first();
                     @endphp
@@ -83,12 +86,11 @@
                     @if($primaryImage && $primaryImage->image_path)
                         <img src="{{ asset($primaryImage->image_path) }}"
                              class="card-img-top"
-                             alt="{{ $property->title }}"
-                             style="height: 200px; object-fit: cover;">
+                             style="height:200px; object-fit:cover;">
                     @else
                         <div class="bg-light d-flex align-items-center justify-content-center"
-                             style="height: 200px;">
-                            <i class="bi bi-building fs-1 text-gray-400"></i>
+                             style="height:200px;">
+                            <i class="bi bi-building fs-1 text-secondary"></i>
                         </div>
                     @endif
 
@@ -97,32 +99,32 @@
                     </span>
                 </div>
 
-                <!-- Corps de la carte -->
+                <!-- Body -->
                 <div class="card-body">
                     <h5 class="card-title">{{ $property->title }}</h5>
 
-                    <p class="card-text text-gray-600 mb-2">
+                    <p class="text-muted mb-2">
                         <i class="bi bi-geo-alt"></i> {{ $property->city }}
                     </p>
 
-                    <!-- Caractéristiques -->
-                    <div class="d-flex justify-content-between text-gray-600 mb-3">
+                    <div class="d-flex justify-content-between mb-3 text-muted">
                         <span><i class="bi bi-door-open"></i> {{ $property->bedrooms }} ch.</span>
                         <span><i class="bi bi-droplet"></i> {{ $property->bathrooms }} sdb.</span>
-                        <span><i class="bi bi-arrows-angle-expand"></i> {{ $property->area }}m²</span>
+                        <span><i class="bi bi-arrows-angle-expand"></i> {{ $property->area }} m²</span>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="fs-5 fw-bold text-primary">
+                        <span class="fw-bold text-primary">
                             {{ number_format($property->price) }} USD
                         </span>
                         <span class="badge bg-info">{{ $property->type_text }}</span>
                     </div>
                 </div>
 
-                <!-- Actions -->
-                <div class="card-footer bg-white border-top-0">
+                <!-- Footer -->
+                <div class="card-footer bg-white">
                     <div class="d-flex justify-content-between">
+
                         <div class="btn-group">
                             <a href="{{ route('properties.edit', $property) }}"
                                class="btn btn-sm btn-outline-primary">
@@ -138,8 +140,9 @@
 
                         <a href="{{ route('properties.show', $property) }}"
                            class="btn btn-sm btn-outline-info">
-                            <i class="bi bi-eye"></i> Détails
+                            <i class="bi bi-eye"></i>
                         </a>
+
                     </div>
 
                     <form id="delete-form-{{ $property->id }}"
@@ -157,26 +160,28 @@
         @empty
         <div class="col-12">
             <div class="alert alert-info text-center">
-                <i class="bi bi-info-circle me-2"></i>
                 Aucune propriété trouvée
             </div>
         </div>
         @endforelse
+
     </div>
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center mt-4">
-        {{ $properties->withQueryString()->links() }}
+        {{ $properties->appends(request()->query())->links('pagination::bootstrap-5') }}
     </div>
+
 </div>
+@endsection
+
 
 @push('scripts')
 <script>
 function confirmDelete(id) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette propriété ?')) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cette propriété ?")) {
         document.getElementById('delete-form-' + id).submit();
     }
 }
 </script>
 @endpush
-@endsection

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,7 +23,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Enregistrer le middleware
         $this->app['router']->middleware(['admin' => \App\Http\Middleware\AdminMiddleware::class]);
-
-        
+    }
+    public function configurePagination()
+    {
+        Paginator::useBootstrapFive();
     }
 }
