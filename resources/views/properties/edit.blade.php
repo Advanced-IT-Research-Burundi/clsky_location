@@ -14,7 +14,6 @@
     <form action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data" id="property-form">
         @csrf
         
-        {{-- Inclure le formulaire partagé --}}
         @include('properties._form')
 
         <div class="row mt-4">
