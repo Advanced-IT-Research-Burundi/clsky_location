@@ -43,8 +43,6 @@
             @yield('content')
         <!-- Page Content End -->
 
-
-
         <!-- Footer Start -->
             @include('components.footer')
         <!-- Footer End -->

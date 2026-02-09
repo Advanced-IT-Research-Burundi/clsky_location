@@ -76,7 +76,6 @@
 
         <!-- Search End -->
 
-
         <!-- Category Start -->
         <div class="container-xxl py-5">
             <div class="container">
@@ -222,13 +221,19 @@
                             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                                 <div class="mb-4">
                                     <h1 class="mb-3">Contactez Notre Agent Certifié</h1>
-                                    <p>Eirmod sed ipsum dolor sit rebum magna erat. Tempor lorem kasd vero ipsum sit sit
-                                        diam justo sed vero dolor duo.</p>
+                                    <p>Nos agents immobiliers sont des professionnels qualifiés et passionnés, 
+                                        dédiés à vous accompagner à chaque étape de votre projet immobilier. 
+                                        Grâce à leur parfaite connaissance du marché et à leur écoute attentive, 
+                                        ils vous aident à trouver la propriété qui correspond réellement à vos besoins
+                                        et à votre budget. Que vous souhaitiez acheter, vendre ou louer un bien, 
+                                        nos agents vous offrent des conseils fiables, un suivi personnalisé et un service 
+                                        transparent afin de rendre votre expérience simple, sécurisée et satisfaisante.
+                                    </p>
                                 </div>
-                                <a href="" class="btn btn-primary py-3 px-4 me-2"><i
+                                {{-- <a href="" class="btn btn-primary py-3 px-4 me-2"><i
                                         class="fa fa-phone-alt me-2"></i>Passer un Appel</a>
                                 <a href="" class="btn btn-dark py-3 px-4"><i
-                                        class="fa fa-calendar-alt me-2"></i>Prendre un Rendez-vous</a>
+                                        class="fa fa-calendar-alt me-2"></i>Prendre un Rendez-vous</a> --}}
                             </div>
                         </div>
                     </div>
