@@ -36,7 +36,7 @@
                                         @forelse($property->images as $key => $image)
                                             <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
                                                 <a class="d-block h5 mb-2 text-truncate" href="{{ route('client.properties.show', $property->id) }}">
-                                                    <img src="{{ Storage::url($image->image_path) }}"
+                                                    <img src="{{ asset($image->image_path) }}"
                                                          class="d-block w-100"
                                                          alt="Image de la propriété {{ $key + 1 }}"
                                                          style="height: 300px; object-fit: cover;">
@@ -74,7 +74,7 @@
 
                             <!-- Détails de la propriété -->
                             <div class="p-4 pb-0">
-                                <h5 class="text-primary mb-3">${{ number_format($property->price) }}</h5>
+                                <h5 class="text-primary mb-3">{{ number_format($property->price) }} USD</h5>
                                 <a class="d-block h5 mb-2 text-truncate" href="{{ route('client.properties.show', $property->id) }}">
                                     {{ $property->title }}
                                 </a>

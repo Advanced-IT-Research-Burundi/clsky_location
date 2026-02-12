@@ -53,6 +53,11 @@ class Property extends Model
         return $this->hasMany(PropertyImage::class);
     }
 
+    public function details()
+    {
+        return $this->hasMany(PropertyDetails::class);
+    }
+
     // Accesseurs
     public function getStatusColorAttribute()
     {

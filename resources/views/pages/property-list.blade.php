@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Content start -->
-<div>
+    <!-- Content start -->
+    <div>
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -17,7 +18,7 @@
             <div class="row g-0 align-items-center flex-column-reverse flex-md-row">
                 <div class="col-md-6 p-5 mt-lg-5">
                     <h1 class="display-5 animated fadeIn mb-4">Property List</h1>
-                        <nav aria-label="breadcrumb animated fadeIn">
+                    <nav aria-label="breadcrumb animated fadeIn">
                         <ol class="breadcrumb text-uppercase">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Pages</a></li>
@@ -76,7 +77,8 @@
                     <div class="col-lg-6">
                         <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
                             <h1 class="mb-3">Property Listing</h1>
-                            <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
+                            <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum
+                                sit eirmod sit diam justo sed rebum.</p>
                         </div>
                     </div>
                     <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
@@ -99,114 +101,168 @@
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
+                                        <a href=""><img class="img-fluid" src="img/property-1.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Appartment</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
+                                        <a href=""><img class="img-fluid" src="img/property-2.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Villa</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
+                                        <a href=""><img class="img-fluid" src="img/property-3.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Office</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
+                                        <a href=""><img class="img-fluid" src="img/property-4.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Building</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
+                                        <a href=""><img class="img-fluid" src="img/property-5.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Home</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <a href=""><img class="img-fluid" src="img/property-6.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Shop</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
@@ -220,114 +276,168 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
+                                        <a href=""><img class="img-fluid" src="img/property-1.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Appartment</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
+                                        <a href=""><img class="img-fluid" src="img/property-2.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Villa</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
+                                        <a href=""><img class="img-fluid" src="img/property-3.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Office</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
+                                        <a href=""><img class="img-fluid" src="img/property-4.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Building</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
+                                        <a href=""><img class="img-fluid" src="img/property-5.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Home</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <a href=""><img class="img-fluid" src="img/property-6.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Shop</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
@@ -341,114 +451,168 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-1.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
+                                        <a href=""><img class="img-fluid" src="img/property-1.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Appartment</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-2.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Villa</div>
+                                        <a href=""><img class="img-fluid" src="img/property-2.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Villa</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-3.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Office</div>
+                                        <a href=""><img class="img-fluid" src="img/property-3.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Office</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-4.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Building</div>
+                                        <a href=""><img class="img-fluid" src="img/property-4.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Building</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-5.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Home</div>
+                                        <a href=""><img class="img-fluid" src="img/property-5.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Sell</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Home</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href=""><img class="img-fluid" src="img/property-6.jpg" alt=""></a>
-                                        <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Rent</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Shop</div>
+                                        <a href=""><img class="img-fluid" src="img/property-6.jpg"
+                                                alt=""></a>
+                                        <div
+                                            class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                            For Rent</div>
+                                        <div
+                                            class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                            Shop</div>
                                     </div>
                                     <div class="p-4 pb-0">
                                         <h5 class="text-primary mb-3">$12,345</h5>
                                         <a class="d-block h5 mb-2" href="">Golden Urban House For Sell</a>
-                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA</p>
+                                        <p><i class="fa fa-map-marker-alt text-primary me-2"></i>123 Street, New York, USA
+                                        </p>
                                     </div>
                                     <div class="d-flex border-top">
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
-                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-bed text-primary me-2"></i>3 Bed</small>
-                                        <small class="flex-fill text-center py-2"><i class="fa fa-bath text-primary me-2"></i>2 Bath</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-ruler-combined text-primary me-2"></i>1000 Sqft</small>
+                                        <small class="flex-fill text-center border-end py-2"><i
+                                                class="fa fa-bed text-primary me-2"></i>3 Bed</small>
+                                        <small class="flex-fill text-center py-2"><i
+                                                class="fa fa-bath text-primary me-2"></i>2 Bath</small>
                                     </div>
                                 </div>
                             </div>
@@ -475,10 +639,13 @@
                             <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                                 <div class="mb-4">
                                     <h1 class="mb-3">Contact With Our Certified Agent</h1>
-                                    <p>Eirmod sed ipsum dolor sit rebum magna erat. Tempor lorem kasd vero ipsum sit sit diam justo sed vero dolor duo.</p>
+                                    <p>Eirmod sed ipsum dolor sit rebum magna erat. Tempor lorem kasd vero ipsum sit sit
+                                        diam justo sed vero dolor duo.</p>
                                 </div>
-                                <a href="" class="btn btn-primary py-3 px-4 me-2"><i class="fa fa-phone-alt me-2"></i>Make A Call</a>
-                                <a href="" class="btn btn-dark py-3 px-4"><i class="fa fa-calendar-alt me-2"></i>Get Appoinment</a>
+                                <a href="" class="btn btn-primary py-3 px-4 me-2"><i
+                                        class="fa fa-phone-alt me-2"></i>Make A Call</a>
+                                <a href="" class="btn btn-dark py-3 px-4"><i
+                                        class="fa fa-calendar-alt me-2"></i>Get Appoinment</a>
                             </div>
                         </div>
                     </div>
@@ -486,6 +653,13 @@
             </div>
         </div>
         <!-- Call to Action End -->
-</div>
-
+        <!-- Location Map Start -->
+        <div class="container-fluid p-0">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0000000000005!2d29.21!3d-3.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19c08f0d00000001%3A0xf5c49ae7353a363c!2sCL%20SKY%20COMPANY%2C%20Rohero%201%2C%20Bujumbura%2C%20Burundi!5e0!3m2!1sfr!2sbi!4v1700000000000!5m2!1sfr!2sbi"
+                width="100%" height="400"style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <!-- Location Map End -->
+    </div>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\MessageAttachment;
+use App\Models\Property;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -12,28 +13,26 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $messages = Message::where('receiver_id', auth()->id())
-            ->orWhere('sender_id', auth()->id())
-            ->with(['sender', 'receiver', 'property'])
+        $messages = Message::where(function ($q) {
+            $q->where('receiver_id', auth()->id())
+            ->orWhere('sender_id', auth()->id());
+        })
+            ->where('is_archived', false) // 
+            ->with(['sender', 'receiver'])
             ->latest()
             ->paginate(20);
 
         $unreadCount = Message::where('receiver_id', auth()->id())
             ->whereNull('read_at')
             ->count();
-
         return view('messages.index', compact('messages', 'unreadCount'));
     }
 
     public function create()
     {
         $users = User::where('id', '!=', auth()->id())->get();
-        return view('messages.create', compact('users'));
+        return view('messages.create', compact('users', ));
     }
-
-
-
-
 
     public function destroy(Message $message)
     {
@@ -49,9 +48,10 @@ class MessageController extends Controller
             'subject' => 'required|string|max:255',
             'content' => 'required|string',
             'property_id' => 'nullable|exists:properties,id',
-            'attachments.*' => 'nullable|file|mimes:jpeg,jpg,png,pdf,doc,docx|max:10240' // 10MB max
+            'attachments.*' => 'nullable|file|mimes:jpeg,jpg,png,pdf,doc,docx|max:10240'
         ]);
 
+        // Créer le message
         $message = Message::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $request->receiver_id,
@@ -60,7 +60,7 @@ class MessageController extends Controller
             'property_id' => $request->property_id
         ]);
 
-        // Gérer les pièces jointes
+        // Gestion des pièces jointes
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
                 $path = $file->store('message-attachments', 'public');
@@ -77,6 +77,7 @@ class MessageController extends Controller
         return redirect()->route('messages.show', $message)
             ->with('success', 'Message envoyé avec succès');
     }
+
 
     // public function archive(Message $message)
     // {
@@ -125,16 +126,16 @@ class MessageController extends Controller
         }
 
         // Récupérer les messages liés (même sujet ou même propriété)
-        $relatedMessages = Message::where(function($query) use ($message) {
-                $query->where('subject', 'like', 'Re: ' . $message->subject)
-                    ->orWhere('subject', $message->subject);
+        $relatedMessages = Message::where(function ($query) use ($message) {
+            $query->where('subject', 'like', 'Re: ' . $message->subject)
+                ->orWhere('subject', $message->subject);
 
-                if ($message->property_id) {
-                    $query->orWhere('property_id', $message->property_id);
-                }
-            })
+            if ($message->property_id) {
+                $query->orWhere('property_id', $message->property_id);
+            }
+        })
             ->where('id', '!=', $message->id)
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('sender_id', auth()->id())
                     ->orWhere('receiver_id', auth()->id());
             })
@@ -149,15 +150,15 @@ class MessageController extends Controller
     private function canViewMessage(Message $message)
     {
         return auth()->id() === $message->sender_id ||
-               auth()->id() === $message->receiver_id;
+            auth()->id() === $message->receiver_id;
     }
 
     public function archived()
     {
-        $messages = Message::where(function($query) {
-                $query->where('sender_id', auth()->id())
-                    ->orWhere('receiver_id', auth()->id());
-            })
+        $messages = Message::where(function ($query) {
+            $query->where('sender_id', auth()->id())
+                ->orWhere('receiver_id', auth()->id());
+        })
             ->where('is_archived', true)
             ->with(['sender', 'receiver', 'property'])
             ->latest()

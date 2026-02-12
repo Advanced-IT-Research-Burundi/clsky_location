@@ -60,8 +60,11 @@ class ReservationController extends Controller
                 ->where('status', 'confirmed')
                 ->sum('total_price'),
         ];
-
-        return view('client.reservations.index', compact('reservations', 'stats'));
+            $properties = Property::whereHas('reservations', function ($q) {
+            $q->where('user_id', auth()->id());
+        })
+        ->paginate(10);
+        return view('client.reservations.index', compact('reservations', 'stats', 'properties'));
     }
 
     /**

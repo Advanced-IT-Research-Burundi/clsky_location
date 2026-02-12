@@ -401,13 +401,13 @@
                             Réservations
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('services.*') ? 'active' : '' }}"
                             href="{{ route('services.index') }}">
                             <i class="bi bi-tools"></i>
                             Services
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-three-dots"></i>
@@ -442,13 +442,13 @@
                                     Rapports
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a class="dropdown-item {{ request()->routeIs('settings.index') ? 'active' : '' }}"
                                     href="{{ route('settings.index') }}">
                                     <i class="bi bi-gear"></i>
                                     Paramètres
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
                 </ul>

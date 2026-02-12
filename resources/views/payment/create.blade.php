@@ -35,7 +35,7 @@
                         <!-- Réservation -->
                         <div class="mb-3">
                             <label for="reservation_id" class="form-label">Réservation</label>
-                            <select class="form-select @error('reservation_id') is-invalid @enderror"
+                            <select class="form-select @error('reservaion_id') is-invalid @enderror"
                                     id="reservation_id"
                                     name="reservation_id"
                                     required>
@@ -45,8 +45,8 @@
                                             data-amount="{{ $reservation->total_price }}"
                                             {{ old('reservation_id') == $reservation->id ? 'selected' : '' }}>
                                         #{{ $reservation->id }} - {{ $reservation->property->title }}
-                                        ({{ number_format($reservation->total_price, 2) }} €)
-                                    </option>
+                                        ({{ number_format($reservation->total_price, 2) }} USD)
+                                    </option>t
                                 @endforeach
                             </select>
                             @error('reservation_id')
@@ -65,7 +65,7 @@
                                        name="amount"
                                        value="{{ old('amount') }}"
                                        required>
-                                <span class="input-group-text">€</span>
+                                <span class="input-group-text">USD</span>
                                 @error('amount')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

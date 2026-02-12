@@ -20,12 +20,11 @@ class MessageStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'sender_id' => ['required', 'integer', 'exists:senders,id'],
-            'receiver_id' => ['required', 'integer', 'exists:receivers,id'],
-            'property_id' => ['nullable', 'integer', 'exists:properties,id'],
-            'subject' => ['nullable', 'string'],
-            'content' => ['required', 'string'],
-            'read_at' => ['nullable'],
+        'receiver_id' => ['required', 'exists:users,id'],
+        'property_id' => ['nullable', 'exists:properties,id'],
+        'subject' => ['required', 'string', 'max:255'],
+        'content' => ['required', 'string'],
+        'attachments.*' => ['nullable', 'file', 'mimes:jpeg,jpg,png,pdf,doc,docx', 'max:10240'],
         ];
     }
 }

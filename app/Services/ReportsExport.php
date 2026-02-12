@@ -42,7 +42,7 @@ class ReportsExport implements FromCollection, WithHeadings, WithMapping, WithTi
             $reservation->user->name,
             $reservation->check_in->format('d/m/Y'),
             $reservation->check_out->format('d/m/Y'),
-            number_format($reservation->total_price, 2) . ' €',
+            number_format($reservation->total_price, 2) . ' USD',
             $reservation->status
         ];
     }

@@ -61,7 +61,7 @@
 
                     <div class="border-top pt-3">
                         <h6 class="text-muted">Prix total</h6>
-                        <h4 class="mb-0">{{ number_format($reservation->total_price, 2) }} BIF</h4>
+                        <h4 class="mb-0">{{ number_format($reservation->total_price, 2) }} USD</h4>
                     </div>
                 </div>
                 <div class="card-footer bg-light">
@@ -147,7 +147,7 @@
                                     </small>
                                 </div>
                                 <div class="text-end">
-                                    <h6 class="mb-0">{{ number_format($payment->amount, 2) }} BIF</h6>
+                                    <h6 class="mb-0">{{ number_format($payment->amount, 2) }} USD</h6>
                                     <span class="badge bg-{{ $payment->status === 'completed' ? 'success' : 'warning' }}">
                                         {{ ucfirst($payment->status) }}
                                     </span>
@@ -165,7 +165,7 @@
                 </div>
                 <div class="card-body">
                     <p>Notre équipe est disponible 24/7 pour vous aider.</p>
-                    <a href="#" class="btn btn-outline-primary w-100">
+                    <a href="{{route('messages.create')}}" class="btn btn-outline-primary w-100">
                         <i class="bi bi-chat-dots"></i>
                         Contacter le support
                     </a>

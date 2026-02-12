@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // Page routes
 Route::controller(PageController::class)->group(function () {
@@ -51,6 +46,7 @@ Route::middleware(['auth','check.client'])->group(function () {
     Route::get('archived', [App\Http\Controllers\MessageController::class, 'archived'])->name('archived');
     Route::post('messages/{message}/archive', [App\Http\Controllers\MessageController::class, 'archive'])->name('messages.archive');
     Route::post('messages/{message}/unarchive', [App\Http\Controllers\MessageController::class, 'unarchive'])->name('messages.unarchive');
+    Route::get('/messages/attachment/{attachment}', [App\Http\Controllers\MessageController::class, 'downloadAttachment'])->name('messages.download-attachment');
 
     Route::resource('notifications', App\Http\Controllers\NotificationController::class);
     Route::resource('maintenances', App\Http\Controllers\MaintenanceController::class);
@@ -61,9 +57,9 @@ Route::middleware(['auth','check.client'])->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::put('/settings', [SettingController::class, 'update'])->name('settings.update');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfilController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfilController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfilController::class, 'destroy'])->name('profile.destroy');
     // Routes pour la gestion des images
     Route::delete('/property-images/{image}', [PropertyController::class, 'deleteImage'])
     ->name('properties.delete-image');
@@ -73,8 +69,10 @@ Route::middleware(['auth','check.client'])->group(function () {
     // Routes additionnelles pour la gestion des images
     Route::post('properties/{property}/images', [PropertyController::class, 'uploadImages'])
         ->name('properties.upload-images');
+
     Route::delete('properties/images/{image}', [PropertyController::class, 'deleteImage'])
         ->name('properties.delete-image');
+        
     Route::post('properties/images/{image}/set-primary', [PropertyController::class, 'setPrimaryImage'])
         ->name('properties.set-primary-image');
          // Nouvelle route pour l'ordre des images
@@ -112,6 +110,7 @@ Route::name('client.')->prefix('client')->middleware(['auth'])->group(function (
     Route::get('/reservations', [App\Http\Controllers\Client\ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{reservation}', [App\Http\Controllers\Client\ReservationController::class, 'show'])->name('reservations.show');
     Route::post('/reservations/{reservation}/cancel', [App\Http\Controllers\Client\ReservationController::class, 'cancel'])->name('reservations.cancel');
+    Route::patch('/reservations/{reservation}/status',[App\Http\Controllers\ReservationController::class, 'updateStatus'])->name('reservations.update-status');
 
     // Routes pour les paiements
     Route::get('/payments', [App\Http\Controllers\Client\PaymentController::class, 'index'])->name('payments.index');

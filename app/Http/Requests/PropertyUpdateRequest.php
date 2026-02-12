@@ -46,6 +46,12 @@ class PropertyUpdateRequest extends FormRequest
             // ✅ services
             'services' => ['nullable', 'array'],
             'services.*' => ['exists:services,id'],
+
+            // détails
+            'details' => ['nullable', 'array'],
+            'details.*.title' => ['nullable', 'string', 'max:255'],
+            'details.*.value' => ['nullable', 'string', 'max:255'],
+            'details.*.description' => ['nullable', 'string'],
         ];
     }
 
