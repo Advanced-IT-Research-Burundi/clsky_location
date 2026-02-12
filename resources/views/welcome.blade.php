@@ -210,7 +210,7 @@
 
 
         <!-- Call to Action Start -->
-        <div class="container-xxl py-5">
+        {{-- <div class="container-xxl~ py-5">
             <div class="container">
                 <div class="bg-light rounded p-3">
                     <div class="bg-white rounded p-4" style="border: 1px dashed rgba(0, 185, 142, .3)">
@@ -230,16 +230,16 @@
                                         transparent afin de rendre votre expérience simple, sécurisée et satisfaisante.
                                     </p>
                                 </div>
-                                {{-- <a href="" class="btn btn-primary py-3 px-4 me-2"><i
+                                <a href="" class="btn btn-primary py-3 px-4 me-2"><i
                                         class="fa fa-phone-alt me-2"></i>Passer un Appel</a>
                                 <a href="" class="btn btn-dark py-3 px-4"><i
-                                        class="fa fa-calendar-alt me-2"></i>Prendre un Rendez-vous</a> --}}
+                                        class="fa fa-calendar-alt me-2"></i>Prendre un Rendez-vous</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Call to Action End -->
 
