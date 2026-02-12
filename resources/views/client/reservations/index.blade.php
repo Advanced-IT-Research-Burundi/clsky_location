@@ -42,27 +42,27 @@
                         <div class="row">
                             <!-- Image de la propriété -->
                             <div class="col-md-3">
-                                @if($reservation->property->images->isNotEmpty())
-                                    <img src="{{ Storage::url($reservation->property->images->first()->image_path) }}"
-                                         alt="{{ $reservation->property->titre }}"
+                                @if($reservation?->property?->images->isNotEmpty())
+                                    <img src="{{ asset($reservation?->property?->images->first()->image_path) }}"
+                                         alt="{{ $reservation?->property?->titre }}"
                                          class="img-fluid rounded">
                                 @endif
                             </div>
 
                             <!-- Détails de la réservation -->
                             <div class="col-md-6">
-                                <h5 class="mb-2">{{ $reservation->property->titre }}</h5>
+                                <h5 class="mb-2">{{ $reservation?->property?->titre }}</h5>
                                 <p class="text-muted mb-2">
                                     <i class="bi bi-calendar"></i>
-                                    Du {{ $reservation->check_in->format('d/m/Y') }}
-                                    au {{ $reservation->check_out->format('d/m/Y') }}
+                                    Du {{ $reservation?->check_in->format('d/m/Y') }}
+                                    au {{ $reservation?->check_out->format('d/m/Y') }}
                                 </p>
                                 <p class="text-muted mb-2">
                                     <i class="bi bi-people"></i>
-                                    {{ $reservation->guests }} voyageurs
+                                    {{ $reservation?->guests }} voyageurs
                                 </p>
-                                <span class="badge bg-{{ $reservation->status === 'confirmed' ? 'success' : ($reservation->status === 'pending' ? 'warning' : 'danger') }}">
-                                    {{ ucfirst($reservation->status) }}
+                                <span class="badge bg-{{ $reservation?->status === 'confirmed' ? 'success' : ($reservation?->status === 'pending' ? 'warning' : 'danger') }}">
+                                    {{ ucfirst($reservation?->status) }}
                                 </span>
                             </div>
 
@@ -70,7 +70,7 @@
                             <div class="col-md-3 text-end">
                                 <div class="mb-2">
                                     <h6 class="mb-0">Total</h6>
-                                    <h5 class="text-primary mb-3">{{ number_format($reservation->total_price, 2) }} USD</h5>
+                                    <h5 class="text-primary mb-3">{{ number_format($reservation?->total_price, 2) }} USD</h5>
                                 </div>
 
                                 <a href="{{ route('client.reservations.show', $reservation) }}"
@@ -78,7 +78,7 @@
                                     Voir les détails
                                 </a>
 
-                                @if($reservation->status === 'pending')
+                                @if($reservation?->status === 'pending')
                                     <a href="{{ route('client.payments.initiate', $reservation) }}"
                                        class="btn btn-primary btn-sm w-100 mb-2">
                                         Payer maintenant

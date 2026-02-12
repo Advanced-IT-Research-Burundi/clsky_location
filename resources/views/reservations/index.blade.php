@@ -66,11 +66,11 @@
                         @forelse($reservations as $reservation)
                             <tr>
                                 <td>{{ $reservation->id }}</td>
-                                <td>{{ $reservation->property->title ?? '(Propriété supprimée)'}}</td>
-                                <td>{{ $reservation->user->name }}</td>
-                                <td>{{ $reservation->check_in->format('d/m/Y') }}</td>
-                                <td>{{ $reservation->check_out->format('d/m/Y') }}</td>
-                                <td>{{ number_format($reservation->total_price, 2) }} USD</td>
+                                <td>{{ $reservation->property?->title ?? '(Propriété supprimée)' }}</td>
+                                <td>{{ $reservation->user?->name ?? 'N/A' }}</td>
+                                <td>{{ $reservation->check_in?->format('d/m/Y') ?? 'N/A' }}</td>
+                                <td>{{ $reservation->check_out?->format('d/m/Y') ?? 'N/A' }}</td>
+                                <td>{{ number_format($reservation->total_price, 2, ',', ' ') }} USD</td>
                                 <td>
                                     <span class="badge bg-{{ $reservation->status_color }}">
                                         {{ $reservation->status_text }}
@@ -79,16 +79,19 @@
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <a href="{{ route('reservations.show', $reservation) }}" 
-                                           class="btn btn-outline-info">
+                                           class="btn btn-outline-info"
+                                           title="Voir les détails">
                                             <i class="bi bi-eye"></i>
                                         </a>
                                         <a href="{{ route('reservations.edit', $reservation) }}" 
-                                           class="btn btn-outline-primary">
+                                           class="btn btn-outline-primary"
+                                           title="Modifier">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <button type="button" 
                                                 class="btn btn-outline-danger" 
-                                                onclick="confirmDelete({{ $reservation->id }})">
+                                                onclick="confirmDelete({{ $reservation->id }})"
+                                                title="Supprimer">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
