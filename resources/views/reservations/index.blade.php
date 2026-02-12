@@ -66,14 +66,14 @@
                         @forelse($reservations as $reservation)
                             <tr>
                                 <td>{{ $reservation->id }}</td>
-                                <td>{{ $reservation->property->title ?? '(Propriété supprimée)'}}</td>
-                                <td>{{ $reservation->user->name }}</td>
-                                <td>{{ $reservation->check_in->format('d/m/Y') }}</td>
-                                <td>{{ $reservation->check_out->format('d/m/Y') }}</td>
-                                <td>{{ number_format($reservation->total_price, 2) }} USD</td>
+                                <td>{{ $reservation?->property?->title ?? '(Propriété supprimée)'}}</td>
+                                <td>{{ $reservation?->user?->name }}</td>
+                                <td>{{ $reservation?->check_in->format('d/m/Y') }}</td>
+                                <td>{{ $reservation?->check_out->format('d/m/Y') }}</td>
+                                <td>{{ number_format($reservation?->total_price, 2) }} USD</td>
                                 <td>
-                                    <span class="badge bg-{{ $reservation->status_color }}">
-                                        {{ $reservation->status_text }}
+                                    <span class="badge bg-{{ $reservation?->status_color }}">
+                                        {{ $reservation?->status_text }}
                                     </span>
                                 </td>
                                 <td>
@@ -88,12 +88,12 @@
                                         </a>
                                         <button type="button" 
                                                 class="btn btn-outline-danger" 
-                                                onclick="confirmDelete({{ $reservation->id }})">
+                                                onclick="confirmDelete({{ $reservation?->id }})">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
 
-                                    <form id="delete-form-{{ $reservation->id }}" 
+                                    <form id="delete-form-{{ $reservation?->id }}" 
                                           action="{{ route('reservations.destroy', $reservation) }}" 
                                           method="POST" 
                                           class="d-none">
