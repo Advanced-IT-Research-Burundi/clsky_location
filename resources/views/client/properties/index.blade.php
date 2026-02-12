@@ -69,9 +69,13 @@
                         <div class="position-relative overflow-hidden">
                             <div id="carousel-{{ $property->id }}" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
-                                    @forelse($property->images as $key => $image)
+
+                                
+                                    @forelse($property?->images as $key => $image)
+                                    @dump($image)
                                         <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
                                             <a class="d-block h5 mb-2 text-truncate" href="{{ route('client.properties.show', $property->id) }}">
+
                                                 <img src="{{ asset($image->image_path) }}"
                                                      class="d-block w-100"
                                                      alt="Image de la propriété {{ $key + 1 }}"
@@ -87,7 +91,7 @@
                                         </div>
                                     @endforelse
                                 </div>
-                                @if($property->images->count() > 1)
+                                @if($property?->images->count() > 1)
                                     <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $property->id }}" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     </button>
