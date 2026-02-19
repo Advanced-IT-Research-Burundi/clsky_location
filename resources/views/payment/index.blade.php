@@ -111,7 +111,7 @@
                                         {{ $payment->reservation->property->title ?? 'Propriété inconnue' }}
                                     </a>
                                 </td>
-                                <td>{{ $payment->user->name }}</td>
+                                <td>{{ $payment->user?->name ?? 'Utilisateur inconnu' }}</td>
                                 <td>{{ number_format($payment->amount, 2) }} USD</td>
                                 <td>
                                     @switch($payment->payment_method)
