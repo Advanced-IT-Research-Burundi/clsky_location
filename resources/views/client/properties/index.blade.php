@@ -7,7 +7,7 @@
 <div class="container-xxl py-5">
     <div class="container">
 
-    @dump($properties)
+    {{-- @dump($properties) --}}
         <!-- Section d'en-tête -->
         <div class="row g-0 gx-5 align-items-end mb-4">
             <div class="col-lg-6">

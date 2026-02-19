@@ -87,29 +87,29 @@
                     <div class="row">
                         <div class="col-md-4">
                             @if($reservation->property->images->isNotEmpty())
-                                <img src="{{ Storage::url($reservation->property->images->first()->image_path) }}"
+                                <img src="{{asset($reservation->property->images->first()->image_path) }}"
                                     alt="{{ $reservation->property->titre }}"
                                     class="img-fluid rounded">
                             @endif
                         </div>
                         <div class="col-md-8">
-                            <h5>{{ $reservation->property->titre }}</h5>
+                            <h5>{{ $reservation->property->title }}</h5>
                             <p class="text-muted mb-2">
                                 <i class="bi bi-geo-alt"></i>
-                                {{ $reservation->property->adresse }}, {{ $reservation->property->ville }}
+                                {{ $reservation->property->address }}, {{ $reservation->property->city }}
                             </p>
                             <div class="d-flex mb-3">
                                 <span class="me-3">
                                     <i class="bi bi-door-closed"></i>
-                                    {{ $reservation->property->chambres }} chambres
+                                    {{ $reservation->property->bedrooms }} chambres
                                 </span>
                                 <span class="me-3">
                                     <i class="bi bi-droplet"></i>
-                                    {{ $reservation->property->salles_bain }} sdb
+                                    {{ $reservation->property->bathrooms }} sdb
                                 </span>
                                 <span>
                                     <i class="bi bi-rulers"></i>
-                                    {{ $reservation->property->surface }} m²
+                                    {{ $reservation->property->area }} m²
                                 </span>
                             </div>
                             <a href="{{ route('client.properties.show', $reservation->property) }}"

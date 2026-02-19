@@ -153,7 +153,7 @@
             <!-- Détails de la propriété -->
             <div class="card">
                 <img src="{{ $reservation->property->images->where('is_primary', true)->first() 
-                    ? Storage::url($reservation->property->images->where('is_primary', true)->first()->image_path)
+                    ? asset($reservation->property->images->where('is_primary', true)->first()->image_path)
                     : 'placeholder.jpg' }}" 
                      class="card-img-top" 
                      alt="{{ $reservation->property->title }}">

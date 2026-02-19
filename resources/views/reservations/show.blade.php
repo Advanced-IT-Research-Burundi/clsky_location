@@ -22,7 +22,7 @@
             <div class="col-md-8">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0">Informations de la réservation</h5>
+                        <h5 class="card-title mb-0"></h5>
                         <span class="badge bg-{{ $reservation->status_color }}">
                             {{ $reservation->status_text }}
                         </span>
@@ -132,7 +132,7 @@
                         <h5 class="card-title mb-0">Propriété réservée</h5>
                     </div>
                     @if ($reservation->property->images->where('is_primary', true)->first())
-                        <img src="{{ Storage::url($reservation->property->images->where('is_primary', true)->first()->image_path) }}"
+                        <img src="{{ asset($reservation->property->images->where('is_primary', true)->first()->image_path) }}"
                             class="card-img-top" alt="{{ $reservation->property->title }}">
                     @endif
                     <div class="card-body">
@@ -164,33 +164,53 @@
                     </div>
                 </div>
 
-                <!-- Actions -->
-                <div class="card mt-4">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Actions</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
-                            onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');">
-                            @csrf
-                            @method('DELETE')
+<div class="card mt-4">
+    <div class="card-header">
+        <h5 class="card-title mb-0">Actions</h5>
+    </div>
 
-                            @if ($reservation->status === 'pending')
-                                <button type="button" class="btn btn-success w-100 mb-2"
-                                    onclick="updateStatus('confirmed')">
-                                    <i class="bi bi-check-circle"></i> Confirmer la réservation
-                                </button>
-                            @endif
+    <div class="card-body">
+        {{-- DEBUG VISUEL --}}
+        {{-- <p class="text-muted mb-3">
+            Statut réservation : <strong>{{ $reservation->status }}</strong>
+        </p> --}}
 
-                            @if (in_array($reservation->status, ['pending', 'confirmed']))
-                                <button type="button" class="btn btn-danger w-100" onclick="updateStatus('cancelled')">
-                                    <i class="bi bi-x-circle"></i> Annuler la réservation
-                                </button>
-                            @endif
+        <form action="{{ route('reservations.destroy', $reservation) }}" method="POST"
+            onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');">
+            @csrf
+            @method('DELETE')
 
-                        </form>
-                    </div>
-                </div>
+            {{-- BOUTON CONFIRMER --}}
+            <button
+                type="button"
+                class="btn btn-success w-100 mb-2"
+                onclick="updateStatus('confirmed')"
+                @disabled($reservation->status !== 'pending')
+            >
+                <i class="bi bi-check-circle"></i>
+                Confirmer la réservation
+            </button>
+
+            {{-- BOUTON ANNULER --}}
+            <button
+                type="button"
+                class="btn btn-danger w-100"
+                onclick="updateStatus('cancelled')"
+                @disabled(!in_array($reservation->status, ['pending', 'confirmed']))>
+                <i class="bi bi-x-circle"></i>
+                Annuler la réservation
+            </button>
+        </form>
+
+        {{-- MESSAGE SI AUCUNE ACTION --}}
+        {{-- @if (!in_array($reservation->status, ['pending', 'confirmed']))
+            <div class="alert alert-info mt-3 text-center">
+                Aucune action disponible pour cette réservation.
+            </div>
+        @endif --}}
+    </div>
+</div>
+
             </div>
         </div>
     </div>
