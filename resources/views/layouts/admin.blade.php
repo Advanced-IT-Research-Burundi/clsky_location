@@ -386,13 +386,15 @@
                             Appartements
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
-                            href="{{ route('users.index') }}">
-                            <i class="bi bi-people-fill"></i>
-                            Utilisateurs
-                        </a>
-                    </li>
+                    @if (auth()->user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                                href="{{ route('users.index') }}">
+                                <i class="bi bi-people-fill"></i>
+                                Utilisateurs
+                            </a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('reservations.*') ? 'active' : '' }}"
                             href="{{ route('reservations.index') }}">
