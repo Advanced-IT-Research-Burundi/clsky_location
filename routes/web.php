@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
 
 // Page routes
@@ -134,4 +135,4 @@ Route::get("storage_link", function () {
     return "Storage link created successfully.";
 });
 
-
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

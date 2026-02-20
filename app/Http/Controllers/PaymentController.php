@@ -7,6 +7,8 @@ use App\Http\Requests\PaymentUpdateRequest;
 use App\Models\Payment;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PaymentMail;
 
 class PaymentController extends Controller
 {
@@ -62,35 +64,36 @@ class PaymentController extends Controller
 
     public function store(PaymentStoreRequest $request)
     {
+    try {
+        $payment = Payment::create([
+            'reservation_id' => $request->reservation_id,
+            'amount' => $request->amount,
+            'payment_method' => $request->payment_method,
+            'transaction_id' => $request->transaction_id,
+            'status' => $request->status,
+            'user_id' => auth()->id(),
+            'metadata' => [
+                'sender_name' => auth()->user()->name,
+                'sender_phone' => auth()->user()->phone,
+            ]
+        ]);
 
-        try {
-            $payment = Payment::create([
-                'reservation_id' => $request->reservation_id,
-                'amount' => $request->amount,
-                'payment_method' => $request->payment_method,
-                'transaction_id' => $request->transaction_id,
-                'status' => $request->status,
-                'user_id' => auth()->id(),
-                'metadata' => [
-                    'sender_name' => auth()->user()->name,
-                    'sender_phone' => auth()->user()->phone,
-                ]
+        // Mettre à jour le statut de paiement de la réservation si le paiement est complété
+        if ($request->status === 'completed') {
+            $payment->reservation->update([
+                'payment_status' => 'paid'
             ]);
 
-            // Mettre à jour le statut de paiement de la réservation si le paiement est complété
-            if ($request->status === 'completed') {
-                $payment->reservation->update([
-                    'payment_status' => 'paid'
-                ]);
-            }
-
-            return redirect()->route('payments.show', $payment)
-                ->with('success', 'Paiement créé avec succès');
-        } catch (\Exception $e) {
-            // dump($e);
-            return back()->with('error', $e->getMessage())
-                ->withInput();
+            // ENVOI EMAIL
+            // Mail::to($payment->user->email)->send(new PaymentMail($payment));
         }
+        return redirect()->route('payments.show', $payment)
+            ->with('success', 'Paiement créé avec succès et email envoyé !');
+
+    } catch (\Exception $e) {
+        return back()->with('error', $e->getMessage())
+                     ->withInput();
+    }
     }
 
     public function show(Payment $payment)

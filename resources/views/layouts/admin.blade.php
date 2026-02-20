@@ -453,12 +453,12 @@
                 </ul>
 
                 <div class="d-flex align-items-center">
-                    <div class="position-relative me-3">
+                    {{-- <div class="position-relative me-3">
                         <a href="#" class="nav-link">
                             <i class="bi bi-bell fs-5"></i>
                             <span class="badge bg-danger notification-badge">5</span>
                         </a>
-                    </div>
+                    </div> --}}
 
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle user-profile d-flex align-items-center" href="#"

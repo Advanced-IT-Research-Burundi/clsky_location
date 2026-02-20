@@ -20,8 +20,8 @@
                     <h1 class="display-5 mb-4">À Propos de Nous</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb text-uppercase">
-                            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+                            {{-- <li class="breadcrumb-item"><a href="#">Pages</a></li> --}}
                             <li class="breadcrumb-item text-body active" aria-current="page">À Propos</li>
                         </ol>
                     </nav>
@@ -36,7 +36,7 @@
 
 
         <!-- Search Start -->
-        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+        {{-- <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
                 <div class="row g-2">
                     <div class="col-md-10">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Search End -->
 
 

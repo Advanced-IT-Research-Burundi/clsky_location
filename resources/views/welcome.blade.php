@@ -21,7 +21,7 @@
                     <p class="mb-4">
                         Profitez de l'opportunité de trouver un espace qui convient parfaitement à votre style de vie.
                     </p>
-                    <a href="#" class="btn btn-primary py-3 px-5">Commencez Maintenant</a>
+                    <a href="{{ route('client.properties.index') }}" class="btn btn-primary py-3 px-5">Commencez Maintenant</a>
                 </div>
                 <div class="col-md-6 p-4">
                     <div class="owl-carousel header-carousel">
@@ -40,7 +40,7 @@
 
 
         <!-- Search Start -->
-        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+        {{-- <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
                 <div class="row g-2">
                     <div class="col-md-10">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Search End -->
 
@@ -81,10 +81,15 @@
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Types de Propriétés</h1>
-                    <p>Explications simplifiées ici pour un aperçu général des catégories. Chaque catégorie offre des choix
-                        uniques, adaptés aux différents besoins et préférences.</p>
+                    <p>
+                        Explications simplifiées ici pour un aperçu général des catégories.
+                        Chaque catégorie offre des choix uniques, adaptés aux différents besoins et préférences.
+                    </p>
                 </div>
-                <div class="row g-4">
+
+                <!-- ICI -->
+                <div class="row g-4 justify-content-center">
+
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
@@ -92,21 +97,10 @@
                                     <img class="img-fluid" src="img/icon-apartment.png" alt="Icône Appartement">
                                 </div>
                                 <h6>Appartement</h6>
-                                <span>123 Propriétés</span>
                             </div>
                         </a>
                     </div>
-                    {{-- <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                            <div class="rounded p-4">
-                                <div class="icon mb-3">
-                                    <img class="img-fluid" src="img/icon-villa.png" alt="Icône Villa">
-                                </div>
-                                <h6>Villa</h6>
-                                <span>123 Propriétés</span>
-                            </div>
-                        </a>
-                    </div> --}}
+
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
@@ -114,65 +108,10 @@
                                     <img class="img-fluid" src="img/icon-house.png" alt="Icône Maison">
                                 </div>
                                 <h6>Maison</h6>
-                                <span>123 Propriétés</span>
                             </div>
                         </a>
                     </div>
-                    {{-- <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                            <div class="rounded p-4">
-                                <div class="icon mb-3">
-                                    <img class="img-fluid" src="img/icon-housing.png" alt="Icône Bureau">
-                                </div>
-                                <h6>Bureau</h6>
-                                <span>123 Propriétés</span>
-                            </div>
-                        </a>
-                    </div> --}}
-                    {{-- <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                            <div class="rounded p-4">
-                                <div class="icon mb-3">
-                                    <img class="img-fluid" src="img/icon-building.png" alt="Icône Bâtiment">
-                                </div>
-                                <h6>Bâtiment</h6>
-                                <span>123 Propriétés</span>
-                            </div>
-                        </a>
-                    </div> --}}
-                    {{-- <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                            <div class="rounded p-4">
-                                <div class="icon mb-3">
-                                    <img class="img-fluid" src="img/icon-neighborhood.png" alt="Icône Maison de Ville">
-                                </div>
-                                <h6>Maison de Ville</h6>
-                                <span>123 Propriétés</span>
-                            </div>
-                        </a>
-                    </div> --}}
-                    {{-- <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                            <div class="rounded p-4">
-                                <div class="icon mb-3">
-                                    <img class="img-fluid" src="img/icon-condominium.png" alt="Icône Commerce">
-                                </div>
-                                <h6>Commerce</h6>
-                                <span>123 Propriétés</span>
-                            </div>
-                        </a>
-                    </div> --}}
-                    {{-- <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <a class="cat-item d-block bg-light text-center rounded p-3" href="">
-                            <div class="rounded p-4">
-                                <div class="icon mb-3">
-                                    <img class="img-fluid" src="img/icon-luxury.png" alt="Icône Garage">
-                                </div>
-                                <h6>Garage</h6>
-                                <span>123 Propriétés</span>
-                            </div>
-                        </a>
-                    </div> --}}
+
                 </div>
             </div>
         </div>
@@ -186,7 +125,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                        <h1 class="mb-4">#1 Lieu Pour Trouver La Propriété Parfaite</h1>
+                        <h1 class="mb-4">Lieu Pour Trouver La Propriété Parfaite</h1>
                         <p class="mb-4">Il est essentiel de trouver l'endroit idéal pour vivre. Que ce soit un
                             appartement, une maison ou un bureau, nous avons les meilleures options. Explorez une variété de
                             choix adaptés à vos besoins.</p>
@@ -327,7 +266,7 @@
 
 
         <!-- Testimonial Start -->
-        <div class="container-xxl py-5">
+        {{-- <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Ce que disent nos clients !</h1>
@@ -380,12 +319,15 @@
                     </div>
                 </div>
             </div>
+        </div> --}}
+        <!-- Location Map Start -->
+        <div class="container-fluid p-0">
+            <iframe title="Localisation CL SKY COMPANY - Rohero 1, Bujumbura, Burundi"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0000000000005!2d29.21!3d-3.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19c08f0d00000001%3A0xf5c49ae7353a363c!2sCL%20SKY%20COMPANY%2C%20Rohero%201%2C%20Bujumbura%2C%20Burundi!5e0!3m2!1sfr!2sbi!4v1700000000000!5m2!1sfr!2sbi"
+                width="100%" height="400" style="border:0;" allowfullscreen loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
-            <!-- Location Map Start -->
-    <div class="container-fluid p-0">
-         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0000000000005!2d29.21!3d-3.38!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19c08f0d00000001%3A0xf5c49ae7353a363c!2sCL%20SKY%20COMPANY%2C%20Rohero%201%2C%20Bujumbura%2C%20Burundi!5e0!3m2!1sfr!2sbi!4v1700000000000!5m2!1sfr!2sbi" width="100%"
-            height="400"style="border:0;"allowfullscreen=""loading="lazy"referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
     </div>
     <!-- Content End -->
 @endsection

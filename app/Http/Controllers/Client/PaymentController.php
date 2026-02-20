@@ -8,6 +8,8 @@ use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PaymentMail;
 
 class PaymentController extends Controller
 {
@@ -99,6 +101,9 @@ class PaymentController extends Controller
 
             // Mettre à jour le statut de la réservation
             $reservation->update(['status' => 'pending']);
+
+            // Envoyer un email de confirmation à l'utilisateur
+            Mail::to($reservation->user->email)->queue(new PaymentMail($payment));
 
             // Envoyer une notification à l'administrateur
             try {

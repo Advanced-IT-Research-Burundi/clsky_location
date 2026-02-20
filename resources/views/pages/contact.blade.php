@@ -20,8 +20,8 @@
                     <h1 class="display-5 mb-4">Contactez-nous</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb text-uppercase">
-                            <li class="breadcrumb-item"><a href="#">Accueil</a></li>
-                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Accueil</a></li>
+                            {{-- <li class="breadcrumb-item"><a href="#">Pages</a></li> --}}
                             <li class="breadcrumb-item text-body active" aria-current="page">Contact</li>
                         </ol>
                     </nav>
@@ -36,7 +36,7 @@
 
 
         <!-- Recherche -->
-        <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+        {{-- <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
             <div class="container">
                 <div class="row g-2">
                     <div class="col-md-10">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Fin de la Recherche -->
 
 
@@ -89,7 +89,7 @@
                                         <div class="icon me-3" style="width: 45px; height: 45px;">
                                             <i class="fa fa-map-marker-alt text-primary"></i>
                                         </div>
-                                        <span>123 Rue, Paris, France</span>
+                                        <span>Bujumbura, Burundi</span>
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +100,7 @@
                                         <div class="icon me-3" style="width: 45px; height: 45px;">
                                             <i class="fa fa-envelope-open text-primary"></i>
                                         </div>
-                                        <span>contact@exemple.com</span>
+                                        <span>clskyappartement@gmail.com</span>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                                         <div class="icon me-3" style="width: 45px; height: 45px;">
                                             <i class="fa fa-phone-alt text-primary"></i>
                                         </div>
-                                        <span>+33 123 456 789</span>
+                                        <span>+257 69 34 53 45</span>
                                     </div>
                                 </div>
                             </div>
@@ -127,9 +127,9 @@
                     <div class="col-md-6">
                         <div class="wow fadeInUp" data-wow-delay="0.5s">
                             <p class="mb-4">Le formulaire de contact est temporairement inactif. Vous pouvez télécharger
-                                un formulaire de contact fonctionnel en quelques minutes. <a
-                                    href="https://htmlcodex.com/contact-form">Téléchargez-le ici</a>.</p>
-                            <form action="" method="POST">
+                                un formulaire de contact fonctionnel en quelques minutes.</p>
+                            <form action="{{ route('contact.store') }}" method="POST">
+                                @csrf
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
