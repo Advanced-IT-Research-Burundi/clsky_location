@@ -10,10 +10,10 @@ class ContactController extends Controller
         public function store(Request $request)
     {
         $request->validate([
-            'name'    => 'nullable|string|max:255',
-            'email'   => 'nullable|email',
-            'subject' => 'nullable|string|max:255',
-            'message' => 'required|string',
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email',
+            'subject' => 'required|string|max:255',
+            'message' => 'nullable|string',
         ]);
 
         Contact::create($request->only([

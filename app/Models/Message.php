@@ -15,16 +15,7 @@ class Message extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'sender_id',
-        'receiver_id',
-        'property_id',
-        'subject',
-        'content',
-        'is_archived',
-        'is_archived',
-        'read_at',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.

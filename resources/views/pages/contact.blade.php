@@ -70,7 +70,6 @@
         </div> --}}
         <!-- Fin de la Recherche -->
 
-
         <!-- Section de Contact -->
         <div class="container-xxl py-5">
             <div class="container">
@@ -133,29 +132,29 @@
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="name"
+                                            <input type="text"name="name" class="form-control" id="name"
                                                 placeholder="Votre Nom">
                                             <label for="name">Votre Nom</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating">
-                                            <input type="email" class="form-control" id="email"
+                                            <input type="email" name="email" class="form-control" id="email"
                                                 placeholder="Votre Email">
                                             <label for="email">Votre Email</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control" id="subject"
+                                            <input type="text" name="subject" class="form-control" id="subject"
                                                 placeholder="Sujet">
                                             <label for="subject">Sujet</label>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Laissez votre message ici" id="message" style="height: 150px"></textarea>
-                                            <label for="message">Message</label>
+                                            <textarea class="form-control" name="content" placeholder="Laissez votre message ici" id="content" style="height: 150px"></textarea>
+                                            <label for="content">Message</label>
                                         </div>
                                     </div>
                                     <div class="col-12">

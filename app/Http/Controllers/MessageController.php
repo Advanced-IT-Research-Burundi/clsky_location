@@ -15,12 +15,11 @@ class MessageController extends Controller
     {
         $messages = Message::where(function ($q) {
             $q->where('receiver_id', auth()->id())
-            ->orWhere('sender_id', auth()->id());
+                ->orWhere('sender_id', auth()->id());
         })
-            ->where('is_archived', false) // 
             ->with(['sender', 'receiver'])
             ->latest()
-            ->paginate(20);
+            ->paginate(10);
 
         $unreadCount = Message::where('receiver_id', auth()->id())
             ->whereNull('read_at')
@@ -31,7 +30,7 @@ class MessageController extends Controller
     public function create()
     {
         $users = User::where('id', '!=', auth()->id())->get();
-        return view('messages.create', compact('users', ));
+        return view('messages.create', compact('users',));
     }
 
     public function destroy(Message $message)
@@ -44,6 +43,7 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'type' => 'nullable|in:support,contact',
             'receiver_id' => 'required|exists:users,id',
             'subject' => 'required|string|max:255',
             'content' => 'required|string',
@@ -53,6 +53,7 @@ class MessageController extends Controller
 
         // Créer le message
         $message = Message::create([
+            'type' => $request->type ?? 'support',
             'sender_id' => auth()->id(),
             'receiver_id' => $request->receiver_id,
             'subject' => $request->subject,
@@ -157,7 +158,8 @@ class MessageController extends Controller
     {
         $messages = Message::where(function ($query) {
             $query->where('sender_id', auth()->id())
-                ->orWhere('receiver_id', auth()->id());
+                ->orWhere('receiver_id', auth()->id())
+                ->orWhere('type', 'contact');
         })
             ->where('is_archived', true)
             ->with(['sender', 'receiver', 'property'])
@@ -195,5 +197,28 @@ class MessageController extends Controller
         ]);
 
         return back()->with('success', 'Message désarchivé avec succès.');
+    }
+
+    public function storeContact(Request $request)
+    {
+        $request->validate([
+            'type'    => 'nullable|in:support,contact',
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        Message::create([
+            'type'        => $request->type ?? 'contact',
+            'name'        => $request->name,
+            'email'       => $request->email,
+            'subject'     => $request->subject,
+            'content'     => $request->content,
+            'sender_id'   => null,
+            'receiver_id' => auth()->check() ? auth()->id() : null,
+        ]);
+
+        return back()->with('success', 'Message envoyé avec succès.');
     }
 }
