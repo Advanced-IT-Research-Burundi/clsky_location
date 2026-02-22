@@ -37,7 +37,7 @@ class PropertyController extends Controller
 
         $properties = $query
             ->latest()
-            ->paginate(10)
+            ->paginate(6)
             ->withQueryString();   
 
         return view('client.properties.index', compact('properties'));

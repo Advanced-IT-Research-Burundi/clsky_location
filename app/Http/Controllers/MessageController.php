@@ -13,10 +13,19 @@ class MessageController extends Controller
 {
     public function index()
     {
-        $messages = Message::where(function ($q) {
-            $q->where('receiver_id', auth()->id())
-                ->orWhere('sender_id', auth()->id());
+        $messages = Message::where(function ($query) {
+
+            // Messages normaux (clients / admin)
+            $query->where('sender_id', auth()->id())
+                ->orWhere('receiver_id', auth()->id());
+
+            // Contacts visiteurs (non connectés)
+            $query->orWhere(function ($q) {
+                $q->where('type', 'contact')
+                    ->whereNull('sender_id');
+            });
         })
+            // ->where('is_archived', false)
             ->with(['sender', 'receiver'])
             ->latest()
             ->paginate(10);
@@ -24,6 +33,7 @@ class MessageController extends Controller
         $unreadCount = Message::where('receiver_id', auth()->id())
             ->whereNull('read_at')
             ->count();
+
         return view('messages.index', compact('messages', 'unreadCount'));
     }
 

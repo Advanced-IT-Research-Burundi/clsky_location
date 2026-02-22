@@ -136,3 +136,10 @@ Route::get("storage_link", function () {
 });
 
 Route::post('/contact', [MessageController::class, 'storeContact'])->name('contact.store');
+Route::get('/support/contact', function () {
+    if (auth()->check() && auth()->user()->canAccessDashboard()) {
+        return redirect()->route('messages.create');
+    }
+
+    return redirect()->route('contact');
+})->name('support.contact');

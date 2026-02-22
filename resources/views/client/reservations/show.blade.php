@@ -165,7 +165,7 @@
                 </div>
                 <div class="card-body">
                     <p>Notre équipe est disponible 24/7 pour vous aider.</p>
-                    <a href="{{route('messages.create')}}" class="btn btn-outline-primary w-100">
+                    <a href="{{route('support.contact')}}" class="btn btn-outline-primary w-100">
                         <i class="bi bi-chat-dots"></i>
                         Contacter le support
                     </a>

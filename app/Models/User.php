@@ -10,79 +10,63 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
-    use   Notifiable;
+    use HasFactory, SoftDeletes, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'email_verified_at',
-        'password',
-        'phone',
-        'address',
-        'role',
-        'avatar',
-        'status',
-    ];
+    protected $guarded = [];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'id' => 'integer',
         'email_verified_at' => 'timestamp',
     ];
+
+    /* =======================
+        ROLES
+    ======================= */
+
+    const ROLE_ADMIN  = 'admin';
+    const ROLE_AGENT  = 'agent';
+    const ROLE_CLIENT = 'client';
+
     public function getRoleTextAttribute()
     {
         return [
-            'admin' => 'Administrateur',
-            'agent' => 'Agent',
-            'client' => 'Client'
+            'admin'  => 'Administrateur',
+            'agent'  => 'Agent',
+            'client' => 'Client',
         ][$this->role] ?? $this->role;
     }
 
-    // Méthodes
-    public function isAdmin()
+    public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return $this->role === self::ROLE_ADMIN;
     }
 
-    public function isAgent()
+    public function canAccessDashboard(): bool
     {
-        return $this->role === 'agent';
+        return in_array($this->role, [self::ROLE_ADMIN, self::ROLE_AGENT]);
     }
 
-    public function reservations(){
-        $this->hasMany(Reservation::class);
+    /* =======================
+        RELATIONS
+    ======================= */
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
     }
 
-    public function payments(){
-        $this->hasMany(Payment::class);
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
-
-    const ROLE_ADMIN = 'admin';
-    const ROLE_CLIENT = 'client';
 
     public function messagesSent()
     {
         return $this->hasMany(Message::class, 'sender_id');
     }
-
 }
