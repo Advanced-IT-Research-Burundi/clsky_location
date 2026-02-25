@@ -29,10 +29,11 @@ class DashboardController extends Controller
             });
         }
 
-        $properties = $query->get()
-            ->sortByDesc(function ($property) {
-                return $property->reservations->sum('total_paid');
-            });
+        $properties = $query
+            ->withSum('reservations as total_paid_sum', 'total_paid')
+            ->orderByDesc('total_paid_sum') // tri SQL
+            ->paginate(10)
+            ->withQueryString(); // conserve les filtres
 
         // Calcul des statistiques
         $stats = $this->calculateStats($properties, $startDate);
@@ -69,7 +70,8 @@ class DashboardController extends Controller
 
     private function calculateStats($properties, $startDate)
     {
-        $reservations = $properties->flatMap->reservations
+        $reservations = $properties->getCollection() // transforme les items paginés en Collection
+            ->flatMap->reservations
             ->when($startDate, function ($reservations) use ($startDate) {
                 return $reservations->where('created_at', '>=', $startDate);
             });

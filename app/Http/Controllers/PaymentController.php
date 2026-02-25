@@ -41,7 +41,7 @@ class PaymentController extends Controller
         $refundedAmount = Payment::where('status', 'refunded')->sum('amount');
 
         // Pagination
-        $payments = $query->latest()->paginate(10);
+        $payments = $query->latest()->paginate(2);
 
         return view('payment.index', compact(
             'payments',
