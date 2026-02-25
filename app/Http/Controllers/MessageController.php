@@ -28,7 +28,7 @@ class MessageController extends Controller
             // ->where('is_archived', false)
             ->with(['sender', 'receiver'])
             ->latest()
-            ->paginate(10);
+            ->paginate(5);
 
         $unreadCount = Message::where('receiver_id', auth()->id())
             ->whereNull('read_at')

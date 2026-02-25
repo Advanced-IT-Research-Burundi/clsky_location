@@ -62,11 +62,9 @@
                 </table>
             </div>
 
-            @if(isset($depenses) && $depenses->hasPages())
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $depenses->links() }}
-                </div>
-            @endif
+    <div class="d-flex justify-content-center mt-4">
+        {{ $depenses->appends(request()->query())->links('pagination::bootstrap-5') }}
+    </div>
         </div>
     </div>
 </div>

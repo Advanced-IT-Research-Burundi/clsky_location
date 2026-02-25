@@ -13,7 +13,7 @@ class DepenseController extends Controller
     {
         $depenses = Depense::where('user_id', Auth::id())
             ->latest()
-            ->paginate(10);
+            ->paginate(5);
 
         $totalDepenses = Depense::where('user_id', Auth::id())->sum('montant');
         $nombreDepenses = Depense::where('user_id', Auth::id())->count();
