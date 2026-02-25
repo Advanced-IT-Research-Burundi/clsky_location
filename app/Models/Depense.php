@@ -14,17 +14,7 @@ class Depense extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'titre',
-        'description',
-        'montant',
-        'date_depense',
-        'categorie',
-        'mode_paiement',
-        'reference',
-        'justificatif',
-        'user_id',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -33,5 +23,6 @@ class Depense extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'date_depense' => 'date',
     ];
 }

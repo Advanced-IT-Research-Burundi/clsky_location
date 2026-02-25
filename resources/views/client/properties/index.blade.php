@@ -170,21 +170,14 @@
     </div>
 
     <!-- Pagination -->
-    <div class="row mt-5">
-        <div class="col-12">
-            @if ($properties->count() > 0)
-                <div class="d-flex justify-content-center wow fadeInUp" data-wow-delay="0.1s">
-                    {{ $properties->links() }}
-                </div>
-            @endif
-        </div>
+    <div class="d-flex justify-content-center mt-4">
+        {{ $properties->appends(request()->query())->links('pagination::bootstrap-5') }}
     </div>
     </div>
     </div>
     <!-- Property List End -->
 
-    <style>
-        /* Pagination Styles */
+    {{-- <style>
         .pagination {
             display: flex;
             justify-content: center;
@@ -242,7 +235,7 @@
         .empty-state {
             padding: 3rem 1rem;
         }
-    </style>
+    </style> --}}
 
     <!-- Content end -->
 @endSection

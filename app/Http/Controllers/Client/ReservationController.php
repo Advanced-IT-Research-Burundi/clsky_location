@@ -40,17 +40,15 @@ class ReservationController extends Controller
                     break;
                 case 'current':
                     $query->where('check_in', '<=', now())
-                         ->where('check_out', '>=', now());
+                        ->where('check_out', '>=', now());
                     break;
             }
         }
 
-        // Tri des réservations
         $query->orderBy('check_in', $request->get('sort', 'desc'));
 
-        $reservations = $query->paginate(10);
+        $reservations = $query->paginate(5);
 
-        // Statistiques pour le tableau de bord
         $stats = [
             'total' => Reservation::where('user_id', Auth::id())->count(),
             'upcoming' => Reservation::where('user_id', Auth::id())
@@ -60,10 +58,10 @@ class ReservationController extends Controller
                 ->where('status', 'confirmed')
                 ->sum('total_price'),
         ];
-            $properties = Property::whereHas('reservations', function ($q) {
+        $properties = Property::whereHas('reservations', function ($q) {
             $q->where('user_id', auth()->id());
         })
-        ->paginate(10);
+            ->paginate(5);
         return view('client.reservations.index', compact('reservations', 'stats', 'properties'));
     }
 
@@ -80,15 +78,13 @@ class ReservationController extends Controller
             abort(403, 'Vous n\'êtes pas autorisé à voir cette réservation.');
         }
 
-        // Charger les relations nécessaires
         $reservation->load([
             'property',
             'property.images',
             'payments',
-            'property.user' // Propriétaire
+            'property.user'
         ]);
 
-        // Calculer quelques informations supplémentaires
         $data = [
             'nights' => $reservation->check_in->diffInDays($reservation->check_out),
             'cancellable' => $this->isCancellable($reservation),
@@ -108,49 +104,49 @@ class ReservationController extends Controller
      */
     public function cancel(Request $request, Reservation $reservation)
     {
-        // Vérifier que l'utilisateur est autorisé à annuler cette réservation
         if ($reservation->user_id !== Auth::id()) {
-            abort(403, 'Vous n\'êtes pas autorisé à annuler cette réservation.');
+            abort(403);
         }
 
-        // Vérifier si la réservation peut être annulée
         if (!$this->isCancellable($reservation)) {
-            return back()->with('error', 'Cette réservation ne peut plus être annulée. Contactez le support pour plus d\'informations.');
+            return back()->with('error', 'Cette réservation ne peut plus être annulée.');
         }
 
         try {
-            // Début de la transaction
             \DB::beginTransaction();
 
-            // Mettre à jour le statut de la réservation
             $reservation->update([
-                'statut' => 'annulee',
-                'motif_annulation' => $request->input('motif'),
-                'date_annulation' => now()
+                'status' => 'cancelled',
+                'cancellation_reason' => $request->input('motif'),
+                'cancelled_at' => now(),
             ]);
 
-            // Remettre à jour la disponibilité de la propriété si nécessaire
-            $property = $reservation->property;
-            $property->update(['statut' => 'disponible']);
+            $reservation->property?->update([
+                'status' => 'available'
+            ]);
 
-            // Gérer les remboursements si nécessaire
             $this->handleCancellationRefund($reservation);
 
-            // Notifier le propriétaire
-            $reservation->property->user->notify(new ReservationCanceled($reservation));
+            $reservation->property->user->notify(
+                new ReservationCanceled($reservation)
+            );
 
-            // Notifier le locataire
-            Auth::user()->notify(new ReservationStatusUpdated($reservation));
+            Auth::user()->notify(
+                new ReservationStatusUpdated($reservation)
+            );
 
             \DB::commit();
 
             return redirect()
                 ->route('client.reservations.index')
-                ->with('success', 'Votre réservation a été annulée avec succès. Un email de confirmation vous a été envoyé.');
-
-        } catch (\Exception $e) {
+                ->with('success', 'Réservation annulée avec succès.');
+        } catch (\Throwable $e) {
             \DB::rollBack();
-            return back()->with('error', 'Une erreur est survenue lors de l\'annulation. Veuillez réessayer.');
+
+            return back()->with(
+                'error',
+                'Erreur lors de l’annulation. Veuillez réessayer.'
+            );
         }
     }
 
@@ -162,18 +158,16 @@ class ReservationController extends Controller
      */
     private function isCancellable(Reservation $reservation): bool
     {
-        // Vérifier si la réservation n'est pas déjà annulée
         if ($reservation->status === 'cancelled') {
             return false;
         }
 
-        // Vérifier si la date de début est dans plus de 48h
-        if ($reservation->check_in->diffInHours(now()) < 48) {
+
+        if ($reservation->check_in <= now()) {
             return false;
         }
 
-        // Vérifier si la réservation n'a pas déjà commencé
-        if ($reservation->check_in <= now()) {
+        if (now()->diffInHours($reservation->check_in, false) < 48) {
             return false;
         }
 
@@ -191,21 +185,15 @@ class ReservationController extends Controller
         $completedPayments = $reservation->payments()->where('status', 'completed')->get();
 
         foreach ($completedPayments as $payment) {
-            // Calculer le montant du remboursement selon la politique d'annulation
             $refundAmount = $this->calculateRefundAmount($reservation, $payment->amount);
 
             if ($refundAmount > 0) {
-                // Créer un enregistrement de remboursement
                 $reservation->payments()->create([
                     'amount' => -$refundAmount, // Montant négatif pour indiquer un remboursement
                     'status' => 'pending',
                     'type' => 'refund',
                     'original_payment_id' => $payment->id
                 ]);
-
-                // Ici, vous pourriez ajouter la logique pour traiter le remboursement via votre système de paiement
-                // Par exemple, avec Stripe :
-                // \Stripe\Refund::create(['payment_intent' => $payment->payment_intent_id]);
             }
         }
     }
@@ -219,18 +207,47 @@ class ReservationController extends Controller
      */
     private function calculateRefundAmount(Reservation $reservation, float $paidAmount): float
     {
-        $daysUntilCheckIn = $reservation->check_in->diffInDays(now());
+        $daysUntilCheckIn = now()->diffInDays($reservation->check_in, false);
 
-        // Politique de remboursement
         if ($daysUntilCheckIn > 7) {
-            // Remboursement total moins les frais de service
             return $paidAmount * 0.95;
-        } elseif ($daysUntilCheckIn > 3) {
-            // Remboursement de 50%
+        }
+
+        if ($daysUntilCheckIn > 3) {
             return $paidAmount * 0.5;
-        } else {
-            // Pas de remboursement
-            return 0;
+        }
+
+        return 0;
+    }
+
+    public function destroy(Reservation $reservation)
+    {
+        // Sécurité : seul le propriétaire peut supprimer
+        if ($reservation->user_id !== auth()->id()) {
+            abort(403, 'Action non autorisée.');
+        }
+
+        try {
+            \DB::beginTransaction();
+
+            // Supprimer les paiements liés (important)
+            $reservation->payments()->delete();
+
+            // Supprimer la réservation
+            $reservation->delete();
+
+            \DB::commit();
+
+            return redirect()
+                ->route('client.reservations.index')
+                ->with('success', 'La réservation a été supprimée avec succès.');
+        } catch (\Throwable $e) {
+            \DB::rollBack();
+
+            return back()->with(
+                'error',
+                'Erreur lors de la suppression de la réservation.'
+            );
         }
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class ProfileController extends Controller
+class SettingController extends Controller
 {
     // Afficher le formulaire de profil
     public function edit()

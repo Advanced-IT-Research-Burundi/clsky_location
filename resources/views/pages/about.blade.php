@@ -89,7 +89,7 @@
                         <p><i class="fa fa-check text-primary me-3"></i>Équipe d'experts certifiés</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Assistance personnalisée et conseils</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Une vaste gamme de biens à découvrir</p>
-                        <a class="btn btn-primary py-3 px-5 mt-3" href="">En savoir plus</a>
+                        {{-- <a class="btn btn-primary py-3 px-5 mt-3" href="{{ route('contact') }}">En savoir plus</a> --}}
                     </div>
                 </div>
             </div>

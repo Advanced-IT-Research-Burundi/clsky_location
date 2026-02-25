@@ -132,7 +132,7 @@
                         <p><i class="fa fa-check text-primary me-3"></i>Les meilleures options disponibles</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Choix variés adaptés à vos besoins</p>
                         <p><i class="fa fa-check text-primary me-3"></i>Service clientèle exceptionnel</p>
-                        <a class="btn btn-primary py-3 px-5 mt-3" href="">En Savoir Plus</a>
+                        <a class="btn btn-primary py-3 px-5 mt-3" href="{{ route('about') }}">En Savoir Plus</a>
                     </div>
                 </div>
             </div>

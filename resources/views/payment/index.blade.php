@@ -157,12 +157,12 @@
                     </tbody>
                 </table>
             </div>
-
+{{-- 
             @if (isset($payments) && $payments->hasPages())
                 <div class="d-flex justify-content-center mt-4">
                     {{ $payments->withQueryString()->links() }}
                 </div>
-            @endif
+            @endif --}}
         </div>
     </div>
 </div>

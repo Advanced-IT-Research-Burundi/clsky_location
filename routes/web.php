@@ -111,9 +111,12 @@ Route::name('client.')->prefix('client')->middleware(['auth'])->group(function (
     Route::get('/reservations', [App\Http\Controllers\Client\ReservationController::class, 'index'])->name('reservations.index');
     Route::get('/reservations/{reservation}', [App\Http\Controllers\Client\ReservationController::class, 'show'])->name('reservations.show');
     Route::post('/reservations/{reservation}/cancel', [App\Http\Controllers\Client\ReservationController::class, 'cancel'])->name('reservations.cancel');
-    Route::patch('/reservations/{reservation}/status',[App\Http\Controllers\ReservationController::class, 'updateStatus'])->name('reservations.update-status');
+    Route::patch('/reservations/{reservation}/status',[App\Http\Controllers\Client\ReservationController::class, 'updateStatus'])->name('reservations.update-status');
+    Route::delete('/reservations/{reservation}',[App\Http\Controllers\Client\ReservationController::class, 'destroy'])->name('reservations.destroy');
 
-    // Routes pour les paiements
+
+
+    // Routes pour les paiement
     Route::get('/payments', [App\Http\Controllers\Client\PaymentController::class, 'index'])->name('payments.index');
     Route::get('/payments/{reservation}/initiate', [App\Http\Controllers\Client\PaymentController::class, 'initiate'])->name('payments.initiate'); // Nouvelle route
     Route::post('/payments/{reservation}/pay', [App\Http\Controllers\Client\PaymentController::class, 'pay'])->name('payments.pay');

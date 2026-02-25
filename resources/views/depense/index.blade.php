@@ -22,7 +22,6 @@
                             <th>ID</th>
                             <th>Titre</th>
                             <th>Montant</th>
-                            <th>Justificatif</th>
                             <th>Date</th>
                             <th>Catégorie</th>
                             <th>Actions</th>
@@ -34,11 +33,6 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $depense->titre }}</td>
                                 <td>{{ number_format($depense->montant, 2) }} USD</td>
-                                <td>
-                                    <a href="{{ asset('storage/' . $depense->justificatif) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-                                        Voir Justificatif
-                                    </a>
-                                </td>
                                 <td>{{ $depense->date_depense  }}</td>
                                 <td>{{ $depense->categorie }}</td>
                                 <td>

@@ -24,7 +24,7 @@ class ReservationController extends Controller
                 });
             })
             ->latest()
-            ->paginate(10);
+            ->paginate(5);
 
         return view('reservations.index', compact('reservations'));
     }

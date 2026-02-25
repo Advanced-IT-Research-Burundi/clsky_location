@@ -24,7 +24,7 @@ class PaymentController extends Controller
             $query->where('status', 'like', "%{$status}%");
         }
 
-        $payments = $query->latest()->paginate(10);
+        $payments = $query->latest()->paginate(5);
 
         return view('client.payments.index', compact('payments'));
     }

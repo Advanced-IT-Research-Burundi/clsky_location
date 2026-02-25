@@ -86,7 +86,7 @@
                                 @endif
 
                                 <!-- Formulaire de suppression -->
-                                <form action="{{ route('reservations.destroy', $reservation) }}" method="POST" class="d-inline w-100">
+                                <form action="{{ route('client.reservations.destroy', $reservation->id) }}" method="POST" class="d-inline w-100">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm w-100"
@@ -112,16 +112,16 @@
             @endforelse
 
             <!-- Pagination -->
-            <div class="d-flex justify-content-center">
-                {{ $reservations->appends(request()->query())->links() }}
-            </div>
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $reservations->appends(request()->query())->links('pagination::bootstrap-5') }}
+                </div>
         </div>
     </div>
 </div>
 
-<style>
+{{-- <style>
     .card { border: none; border-radius: 10px; }
     .badge { padding: 0.5em 1em; border-radius: 30px; }
     .bi { margin-right: 0.5rem; }
-</style>
+</style> --}}
 @endsection
