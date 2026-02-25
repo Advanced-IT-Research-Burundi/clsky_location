@@ -222,32 +222,21 @@ class ReservationController extends Controller
 
     public function destroy(Reservation $reservation)
     {
-        // Sécurité : seul le propriétaire peut supprimer
-        if ($reservation->user_id !== auth()->id()) {
-            abort(403, 'Action non autorisée.');
-        }
-
         try {
-            \DB::beginTransaction();
+            
+            if ($reservation->user_id !== auth()->id()) {
+                abort(403, 'Action non autorisée.');
+            }
 
-            // Supprimer les paiements liés (important)
-            $reservation->payments()->delete();
-
-            // Supprimer la réservation
             $reservation->delete();
-
-            \DB::commit();
 
             return redirect()
                 ->route('client.reservations.index')
                 ->with('success', 'La réservation a été supprimée avec succès.');
         } catch (\Throwable $e) {
-            \DB::rollBack();
+            dd($e->getMessage());
 
-            return back()->with(
-                'error',
-                'Erreur lors de la suppression de la réservation.'
-            );
+            return back()->with('error', 'Erreur lors de la suppression de la réservation.');
         }
     }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->enum('payment_method', ["card","bank_transfer","cash"]);
             $table->string('transaction_id')->nullable();
+             $table->string('proof_document_path')->nullable();
             $table->enum('status', ["pending","completed","failed","refunded"])->default('pending');
             $table->json('metadata')->nullable();
             $table->timestamps();
